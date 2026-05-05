@@ -1910,6 +1910,7 @@ MonoBehaviour:
   - MinijuegoPrecision
   - MinijuegoFrutas
   - MinijuegoMeteoritos
+  - MinijuegoClic
 --- !u!4 &913022420
 Transform:
   m_ObjectHideFlags: 0
