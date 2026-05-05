@@ -1909,6 +1909,7 @@ MonoBehaviour:
   - MinijuegoMachaca
   - MinijuegoPrecision
   - MinijuegoFrutas
+  - MinijuegoMeteoritos
 --- !u!4 &913022420
 Transform:
   m_ObjectHideFlags: 0
