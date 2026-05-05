@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1095110208709",
+    "project_id": "microrush-33724",
+    "storage_bucket": "microrush-33724.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095110208709:android:4a7b5cd1a40599e45314ac",
+        "android_client_info": {
+          "package_name": "com.francisco.MicroRush"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUe44Q0GAZ_DEtxX_uzVLghzGU7Vg275s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
