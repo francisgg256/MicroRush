@@ -44,6 +44,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoClic.unity
     guid: cfdfc931fa740f84d92d546e4268165d
+  - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoSemaforo.unity
+    guid: 427209fe8256e4e4e885a7d9bd280b14
+  - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoMemoria.unity
+    guid: 18f3f33e76af57f49aa3fdb2995df8b6
+  - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoGravedad.unity
+    guid: 5866247fe85c1954aa4d27b846143f38
+  - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoClasificador.unity
+    guid: 3d50619c4bcd9f3428c4b80a280e1c19
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

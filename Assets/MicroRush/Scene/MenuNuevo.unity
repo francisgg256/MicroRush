@@ -1911,6 +1911,10 @@ MonoBehaviour:
   - MinijuegoFrutas
   - MinijuegoMeteoritos
   - MinijuegoClic
+  - MinijuegoSemaforo
+  - MinijuegoMemoria
+  - MinijuegoGravedad
+  - MinijuegoClasificador
 --- !u!4 &913022420
 Transform:
   m_ObjectHideFlags: 0

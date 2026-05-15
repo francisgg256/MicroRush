@@ -7,6 +7,9 @@ TagManager:
   - Jugador
   - Suelo
   - Frutas
+  - Trampa
+  - CajaBuena
+  - CajaMala
   layers:
   - Default
   - TransparentFX
