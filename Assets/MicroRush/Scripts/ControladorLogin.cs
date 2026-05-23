@@ -43,7 +43,7 @@ public class ControladorLogin : MonoBehaviour
             PlayerPrefs.SetString("Usuario", nombreUsuario);
 
             // Aquí pones la escena a la que quieras que vaya al entrar
-            SceneManager.LoadScene("MenuNuevo");
+            SceneManager.LoadScene("Menu");
         }
         else
         {
@@ -56,5 +56,12 @@ public class ControladorLogin : MonoBehaviour
     {
         Debug.Log("Aquí se abriría el panel de registro");
         // Más adelante podemos hacer que esto active otro panel visual
+    }
+
+    public void OnBotonVolver()
+    {
+        // Asegúrate de poner el nombre exacto de tu escena del menú principal
+        // Viendo tus capturas anteriores, creo que se llama "Menu" o "Inicio"
+        SceneManager.LoadScene("Menu");
     }
 }

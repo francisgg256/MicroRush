@@ -7,7 +7,7 @@ public class ControladorInicio : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
-            SceneManager.LoadScene("MenuNuevo");
+            SceneManager.LoadScene("Menu");
         }
     }
 }

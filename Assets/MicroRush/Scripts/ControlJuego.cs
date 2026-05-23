@@ -37,8 +37,8 @@ public class ControlJuego : MonoBehaviour
         puntuacion += 100;
         ultimoResultado = "Ganado";
 
-        // CAMBIO 1: Sustituimos "Transicion" por tu nueva escena de Victoria
-        SceneManager.LoadScene("Victoria");
+        // Apuntamos a la escena única de resultados del minijuego
+        SceneManager.LoadScene("VictoriaMinijuego");
     }
 
     public void perderMinijuego()
@@ -52,13 +52,13 @@ public class ControlJuego : MonoBehaviour
             if (ControladorFirebase.instancia != null)
                 ControladorFirebase.instancia.GuardarPuntuacion(nombre, puntuacion);
 
-            // (Esto lo dejamos igual, asumo que "Resultados" es tu pantalla de Game Over total)
+            // Si se queda sin vidas, va al Game Over total
             SceneManager.LoadScene("Resultados");
         }
         else
         {
-            // CAMBIO 2: Sustituimos "Transicion" por tu nueva escena de Derrota
-            SceneManager.LoadScene("Derrota");
+            // Si le quedan vidas, va a la misma escena de transición
+            SceneManager.LoadScene("VictoriaMinijuego");
         }
     }
 

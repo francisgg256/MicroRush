@@ -9,23 +9,20 @@ EditorBuildSettings:
     path: Assets/MicroRush/Scene/Inicio.unity
     guid: ff25df15d229b48409fddeb35e2c1a02
   - enabled: 1
-    path: Assets/MicroRush/Scene/MenuNuevo.unity
-    guid: a05803658cb4f28409e1cafaded8e0d6
+    path: Assets/MicroRush/Scene/Menu.unity
+    guid: 7e6c8c99836c5144c8851868a3840aff
   - enabled: 1
-    path: Assets/MicroRush/Scene/LoginNuevo.unity
-    guid: 1ea4bcec7b6ad874db85a02312c4d38c
+    path: Assets/MicroRush/Scene/Login.unity
+    guid: b7f7945ca0f6623479583dad07a253f1
   - enabled: 1
-    path: Assets/MicroRush/Scene/RankingNuevo.unity
-    guid: 491b09253968fe749a0587420307622e
+    path: Assets/MicroRush/Scene/Ranking.unity
+    guid: 10b880aa37f3e2346a63ad1627f5a7d2
+  - enabled: 1
+    path: Assets/MicroRush/Scene/VictoriaMinijuego.unity
+    guid: 142c352c364627a4ba5695012e4fe7b3
   - enabled: 1
     path: Assets/MicroRush/Scene/Resultados.unity
     guid: e724674730aee2c498b63b5ec5476969
-  - enabled: 1
-    path: Assets/MicroRush/Scene/Victoria.unity
-    guid: a38ef35588f37d143b311dcc1e877b4e
-  - enabled: 1
-    path: Assets/MicroRush/Scene/Derrota.unity
-    guid: 897358975fff43c4fafd892fbde060e0
   - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoSaltos.unity
     guid: 60db2199f01386a449d782093c130ad5

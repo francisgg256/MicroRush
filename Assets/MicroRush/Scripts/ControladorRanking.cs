@@ -47,14 +47,18 @@ public class ControladorRanking : MonoBehaviour
                 DataSnapshot snapshot = task.Result;
                 listaJugadoresDescargada = new List<(string nombre, int puntos)>();
 
-                foreach (DataSnapshot hijo in snapshot.Children)
+                // Comprobamos si realmente hay datos en la base de datos
+                if (snapshot != null && snapshot.HasChildren)
                 {
-                    string nombre = hijo.Child("player_name").Value.ToString();
-                    int puntos = int.Parse(hijo.Child("score").Value.ToString());
-                    listaJugadoresDescargada.Add((nombre, puntos));
+                    foreach (DataSnapshot hijo in snapshot.Children)
+                    {
+                        string nombre = hijo.Child("player_name").Value.ToString();
+                        int puntos = int.Parse(hijo.Child("score").Value.ToString());
+                        listaJugadoresDescargada.Add((nombre, puntos));
+                    }
                 }
 
-                // Ordenamos de mayor a menor
+                // Ordenamos de mayor a menor (si está vacía, no pasa nada)
                 listaJugadoresDescargada = listaJugadoresDescargada.OrderByDescending(j => j.puntos).ToList();
 
                 // Le avisamos al Update que ya puede pintar la UI
@@ -70,22 +74,29 @@ public class ControladorRanking : MonoBehaviour
         {
             datosListos = false; // Lo apagamos para que solo lo haga una vez
 
-            for (int i = 0; i < listaJugadoresDescargada.Count; i++)
+            // Recorremos TODAS las filas de la UI (las 5 que creaste)
+            for (int i = 0; i < textosNombres.Count; i++)
             {
-                // Evitamos errores si hay más datos que filas creadas
-                if (i < textosNombres.Count)
+                if (i < listaJugadoresDescargada.Count)
                 {
+                    // Si hay datos para esta fila, los ponemos
                     textosNombres[i].text = listaJugadoresDescargada[i].nombre;
                     // El "N0" hace que los números tengan separador de miles (ej: 56,192)
                     textosPuntos[i].text = listaJugadoresDescargada[i].puntos.ToString("N0");
+                }
+                else
+                {
+                    // Si no hay más jugadores en la base de datos, dejamos la fila limpia
+                    textosNombres[i].text = "---";
+                    textosPuntos[i].text = "0";
                 }
             }
         }
     }
 
-    // Acuérdate de conectar esto al botón "<" de abajo a la izquierda
+    // Acuérdate de conectar esto al botón "<" de arriba a la izquierda
     public void OnBotonMenu()
     {
-        SceneManager.LoadScene("MenuNuevo");
+        SceneManager.LoadScene("Menu");
     }
 }

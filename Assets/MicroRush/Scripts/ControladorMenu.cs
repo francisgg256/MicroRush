@@ -27,12 +27,12 @@ public class ControladorMenu : MonoBehaviour
 
     public void OnBotonRanking()
     {
-        SceneManager.LoadScene("RankingNuevo");
+        SceneManager.LoadScene("Ranking");
     }
 
     public void OnBotonLogin()
     {
-        SceneManager.LoadScene("LoginNuevo");
+        SceneManager.LoadScene("Login");
     }
 
     public void OnBotonSalir()
