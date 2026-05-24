@@ -1,38 +1,77 @@
 using UnityEngine;
 
+/// <summary>
+/// Clase responsable de la instanciación dinámica y procedimental de objetivos en pantalla.
+/// Gestiona la aparición aleatoria de elementos interactivos (positivos y negativos) 
+/// dentro de los límites visuales de la interfaz del usuario.
+/// </summary>
 public class GeneradorDianas : MonoBehaviour
 {
     [Header("Prefabs")]
+
+    /// <summary>
+    /// Objeto base (Prefab) que representa un objetivo válido (ej. fruta).
+    /// </summary>
     public GameObject prefabFruta;
+
+    /// <summary>
+    /// Objeto base (Prefab) que representa una penalización o peligro letal (ej. bomba o pinchos).
+    /// </summary>
     public GameObject prefabPeligro;
 
     [Header("Configuración")]
-    public float limiteX = 7f; // Límite horizontal de la pantalla
-    public float limiteY = 4f; // Límite vertical de la pantalla
-    public float tiempoEntreApariciones = 0.8f; // Cada cuánto sale un objeto
-    public float tiempoVidaObjeto = 2f; // Cuánto tarda en desaparecer si no le das clic
 
+    /// <summary>Límite máximo de coordenadas en el eje horizontal para asegurar que el objeto sea visible en pantalla.</summary>
+    public float limiteX = 7f;
+
+    /// <summary>Límite máximo de coordenadas en el eje vertical para asegurar que el objeto sea visible en pantalla.</summary>
+    public float limiteY = 4f;
+
+    /// <summary>Intervalo de tiempo en segundos entre la aparición de un nuevo elemento y el siguiente.</summary>
+    public float tiempoEntreApariciones = 0.8f;
+
+    /// <summary>
+    /// Tiempo de vida útil del objeto en segundos. 
+    /// Si el usuario no interactúa con él en este periodo, el objeto se destruye automáticamente.
+    /// </summary>
+    public float tiempoVidaObjeto = 2f;
+
+    /// <summary>
+    /// Método de inicialización.
+    /// Utiliza el sistema de invocación repetitiva de Unity para ejecutar la lógica de aparición 
+    /// en intervalos regulares, optimizando el rendimiento frente al uso del método Update.
+    /// </summary>
     void Start()
     {
-        // Empieza a escupir objetos en bucle
+        // Inicia el ciclo de generación tras un breve retardo inicial de 0.5 segundos
         InvokeRepeating("AparecerObjeto", 0.5f, tiempoEntreApariciones);
     }
 
+    /// <summary>
+    /// Lógica central de instanciación procedimental.
+    /// Calcula probabilidades paramétricas, selecciona el tipo de objeto, determina 
+    /// una posición espacial válida y gestiona su ciclo de vida automático.
+    /// </summary>
     void AparecerObjeto()
     {
-        // 1. Decidimos al azar si sale una fruta o una bola de pinchos (ej: 25% de que sea pinchos)
+        // 1. Balanceo de Dificultad (RNG): 
+        // Genera un valor aleatorio entre 0.0 y 1.0. Si es mayor a 0.75, selecciona el peligro (25% de probabilidad).
         bool salePeligro = Random.value > 0.75f;
+
+        // Operador ternario para asignar la referencia correcta basándose en el cálculo anterior
         GameObject prefabElegido = salePeligro ? prefabPeligro : prefabFruta;
 
-        // 2. Buscamos una posición aleatoria en toda la pantalla
+        // 2. Distribución Espacial: Calcula coordenadas aleatorias dentro de los límites de la interfaz (Viewport)
         float posX = Random.Range(-limiteX, limiteX);
         float posY = Random.Range(-limiteY, limiteY);
         Vector3 posicionAleatoria = new Vector3(posX, posY, 0f);
 
-        // 3. Hacemos aparecer el objeto
+        // 3. Instanciación: Crea el objeto en el mundo 2D sin alterar su rotación nativa
         GameObject nuevoObjeto = Instantiate(prefabElegido, posicionAleatoria, Quaternion.identity);
 
-        // 4. Si el jugador no le hace clic a tiempo, el objeto se destruye solo
+        // 4. Optimización (Garbage Collection): 
+        // Programa la destrucción del objeto instanciado tras expirar su tiempo de vida,
+        // evitando fugas de memoria si el jugador ignora los objetivos.
         Destroy(nuevoObjeto, tiempoVidaObjeto);
     }
 }
