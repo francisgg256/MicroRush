@@ -7,6 +7,13 @@ using UnityEngine;
 /// </summary>
 public class MovimientoJugador : MonoBehaviour
 {
+    [Header("Control de Estado")]
+    /// <summary>
+    /// Candado lógico. Evita que el jugador se mueva mientras se lee el cartel de instrucciones.
+    /// </summary>
+    public bool puedeMoverse = false;
+
+    [Header("Físicas")]
     /// <summary>
     /// Velocidad de desplazamiento horizontal del jugador.
     /// Define la magnitud de la fuerza aplicada al eje X.
@@ -25,6 +32,12 @@ public class MovimientoJugador : MonoBehaviour
     /// </summary>
     private float entradaX;
 
+    /// <summary>Método llamado externamente para desbloquear los controles del jugador.</summary>
+    public void HabilitarMovimiento()
+    {
+        puedeMoverse = true;
+    }
+
     /// <summary>
     /// Método del ciclo de vida de Unity que se ejecuta en cada frame.
     /// Se utiliza exclusivamente para capturar la entrada del usuario ("Input") 
@@ -32,6 +45,13 @@ public class MovimientoJugador : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // 1. Candado: Si no puede moverse, forzamos la entrada a 0 y evitamos leer el teclado
+        if (!puedeMoverse)
+        {
+            entradaX = 0f;
+            return;
+        }
+
         // Captura el valor del eje horizontal configurado en el Input Manager de Unity (A/D o Flechas)
         entradaX = Input.GetAxis("Horizontal");
     }

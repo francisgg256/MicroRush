@@ -46,6 +46,10 @@ public class ObjetivoClick : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
+        // 1. Candado global: Prevenir clics si el nivel no ha empezado formalmente
+        if (MinijuegoDiana.instancia != null && !MinijuegoDiana.instancia.juegoIniciado)
+            return;
+
         // Control de Errores: Previene el "Spam" de clics evitando que un jugador rápido puntúe doble
         if (yaPulsada) return;
 

@@ -13,8 +13,11 @@ public class MinijuegoSemaforo : MonoBehaviour
     /// </summary>
     public static MinijuegoSemaforo instancia;
 
-    [Header("Configuración")]
+    [Header("Control de Inicio")]
+    /// <summary>Candado lógico. Evita que el nivel y el tiempo funcionen mientras se lee el cartel.</summary>
+    public bool juegoIniciado = false;
 
+    [Header("Configuración")]
     /// <summary>Tiempo límite global en segundos para que el jugador cruce la meta.</summary>
     public float duracion = 10f;
 
@@ -54,13 +57,20 @@ public class MinijuegoSemaforo : MonoBehaviour
         temporizadorCambio = Random.Range(1.5f, 3.5f);
     }
 
+    /// <summary>Método llamado por el cartel universal de UI para desbloquear el minijuego.</summary>
+    public void IniciarMinijuego()
+    {
+        juegoIniciado = true;
+    }
+
     /// <summary>
     /// Bucle de lógica principal.
     /// Evalúa de forma concurrente el tiempo límite global y las transiciones de la máquina de estados.
     /// </summary>
     void Update()
     {
-        if (terminado) return;
+        // Candado: Congelamos el tiempo y los cambios de luz si el juego no ha iniciado o ya terminó
+        if (terminado || !juegoIniciado) return;
 
         // 1. Lógica del tiempo general y actualización del HUD
         tiempoRestante -= Time.deltaTime;

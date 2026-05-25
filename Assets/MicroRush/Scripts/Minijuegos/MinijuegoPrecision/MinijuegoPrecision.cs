@@ -8,6 +8,11 @@ using UnityEngine.UI;
 /// </summary>
 public class MinijuegoPrecision : MonoBehaviour
 {
+    [Header("Control de Inicio")]
+    /// <summary>Candado lógico. Evita que el nivel y el tiempo funcionen mientras se lee el cartel.</summary>
+    public bool juegoIniciado = false;
+
+    [Header("Configuración del Nivel")]
     /// <summary>
     /// Componente visual (UI Slider) cuyo valor oscila de izquierda a derecha.
     /// Sirve simultáneamente como indicador visual y como núcleo de la mecánica de juego.
@@ -47,6 +52,12 @@ public class MinijuegoPrecision : MonoBehaviour
         barraObjetivo.value = 0f;
     }
 
+    /// <summary>Método llamado por el cartel universal de UI para desbloquear el minijuego.</summary>
+    public void IniciarMinijuego()
+    {
+        juegoIniciado = true;
+    }
+
     /// <summary>
     /// Bucle principal del minijuego.
     /// Gestiona la actualización de la UI, la lógica de oscilación matemática (Ping-Pong) 
@@ -54,8 +65,8 @@ public class MinijuegoPrecision : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // Prevención de errores: Corta la ejecución si el nivel ya está resuelto
-        if (terminado) return;
+        // Candado: Corta la ejecución si el nivel ya está resuelto o el cartel sigue en pantalla
+        if (terminado || !juegoIniciado) return;
 
         // Gestión del tiempo y comunicación con el HUD global
         tiempoRestante -= Time.deltaTime;

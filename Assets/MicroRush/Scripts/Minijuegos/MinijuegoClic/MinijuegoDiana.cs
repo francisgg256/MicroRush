@@ -13,6 +13,10 @@ public class MinijuegoDiana : MonoBehaviour
     /// </summary>
     public static MinijuegoDiana instancia;
 
+    [Header("Control de Inicio")]
+    /// <summary>Candado lógico. Evita que el nivel y el tiempo funcionen mientras se lee el cartel.</summary>
+    public bool juegoIniciado = false;
+
     [Header("Configuración del Minijuego")]
 
     /// <summary>
@@ -57,13 +61,20 @@ public class MinijuegoDiana : MonoBehaviour
         tiempoRestante = duracion;
     }
 
+    /// <summary>Método llamado por el cartel universal de UI para desbloquear el minijuego.</summary>
+    public void IniciarMinijuego()
+    {
+        juegoIniciado = true;
+    }
+
     /// <summary>
     /// Bucle de actualización principal.
     /// Gestiona la sincronización del temporizador con el HUD global y evalúa la condición de derrota por tiempo.
     /// </summary>
     void Update()
     {
-        if (terminado) return;
+        // Bloqueos de seguridad: Si el juego ya terminó, o si aún no ha empezado (cartel en pantalla), no hacer nada
+        if (terminado || !juegoIniciado) return;
 
         // Decremento del tiempo de forma independiente a la tasa de fotogramas (FPS)
         tiempoRestante -= Time.deltaTime;
@@ -87,7 +98,8 @@ public class MinijuegoDiana : MonoBehaviour
     /// </summary>
     public void SumarAcierto()
     {
-        if (terminado) return;
+        // Si el juego está bloqueado o terminado, ignoramos el clic
+        if (terminado || !juegoIniciado) return;
 
         frutasExplotadas++;
 
@@ -107,7 +119,7 @@ public class MinijuegoDiana : MonoBehaviour
     /// </summary>
     public void perder()
     {
-        if (terminado) return;
+        if (terminado || !juegoIniciado) return;
 
         terminado = true;
         ControlJuego.instancia.perderMinijuego();

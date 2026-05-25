@@ -8,6 +8,11 @@ using System.Collections.Generic;
 /// </summary>
 public class MinijuegoFrutas : MonoBehaviour
 {
+    [Header("Control de Inicio")]
+    /// <summary>Candado lógico. Evita que el nivel y el tiempo funcionen mientras se lee el cartel.</summary>
+    public bool juegoIniciado = false;
+
+    [Header("Configuración del Nivel")]
     /// <summary>Tiempo límite en segundos para recolectar todas las frutas del escenario.</summary>
     public float tiempoRestante = 10f;
 
@@ -30,12 +35,17 @@ public class MinijuegoFrutas : MonoBehaviour
     /// <summary>
     /// Método de inicialización. 
     /// Escanea la escena en busca de todos los objetos interactuables mediante su etiqueta (Tag).
-    /// Esto hace que el código sea escalable, adaptándose automáticamente a cualquier cambio en el diseño del nivel.
     /// </summary>
     void Start()
     {
         GameObject[] todasLasFrutas = GameObject.FindGameObjectsWithTag("Frutas");
         frutasTotales = todasLasFrutas.Length;
+    }
+
+    /// <summary>Método llamado por el cartel universal de UI para desbloquear el minijuego.</summary>
+    public void IniciarMinijuego()
+    {
+        juegoIniciado = true;
     }
 
     /// <summary>
@@ -44,7 +54,8 @@ public class MinijuegoFrutas : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (terminado) return;
+        // Candado: Si el juego ya terminó, o si aún no ha empezado (cartel en pantalla), el tiempo se congela
+        if (terminado || !juegoIniciado) return;
 
         tiempoRestante -= Time.deltaTime;
 
@@ -63,10 +74,10 @@ public class MinijuegoFrutas : MonoBehaviour
     /// <summary>
     /// Evento invocado externamente por los objetos "Fruta" al detectar una colisión con el jugador.
     /// </summary>
-    /// <param name="frutaObjeto">Referencia al GameObject específico que acaba de ser recolectado.</param>
     public void FrutaRecogida(GameObject frutaObjeto)
     {
-        if (terminado) return;
+        // Si el juego no ha iniciado, no sumamos frutas
+        if (terminado || !juegoIniciado) return;
 
         // Control de Integridad de Datos: Verifica que este objeto exacto no haya sido procesado previamente
         if (!frutasContadas.Contains(frutaObjeto))

@@ -46,6 +46,10 @@ public class GeneradorSierras : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // Candado: Comprobamos si el manager existe y si ya dio la orden de empezar
+        if (MinijuegoMeteoritos.instancia != null && !MinijuegoMeteoritos.instancia.juegoIniciado)
+            return;
+
         // Decremento del tiempo basado en el tiempo real entre fotogramas (prevención de desincronización)
         temporizador -= Time.deltaTime;
 

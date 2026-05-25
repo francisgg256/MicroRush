@@ -20,6 +20,10 @@ public class CaidaSierras : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // Candado: Si el juego no ha empezado, las sierras se quedan congeladas en el aire
+        if (MinijuegoMeteoritos.instancia != null && !MinijuegoMeteoritos.instancia.juegoIniciado)
+            return;
+
         // Movimiento constante hacia abajo (Vector2.down) sincronizado con el tiempo real
         transform.Translate(Vector2.down * velocidad * Time.deltaTime);
 
@@ -39,17 +43,20 @@ public class CaidaSierras : MonoBehaviour
     /// <param name="collision">Datos del componente Collider2D que ha entrado en contacto con la sierra.</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Candado: Evitamos impactos accidentales antes de que empiece el minijuego
+        if (MinijuegoMeteoritos.instancia != null && !MinijuegoMeteoritos.instancia.juegoIniciado)
+            return;
+
         // Filtrado por etiqueta (Tag): Verifica que el impacto haya sido exclusivamente con el jugador
         if (collision.CompareTag("Jugador"))
         {
             // Trazabilidad para el desarrollador en la consola de depuración
             Debug.Log("Colisión letal detectada con " + collision.name);
 
-            // Programación Defensiva y Paso de Mensajes: 
-            // Comprueba que el gestor global exista antes de notificarle el fallo en el minijuego.
-            if (ControlJuego.instancia != null)
+            // Usamos el gestor local para perder, que ya tiene las comprobaciones necesarias
+            if (MinijuegoMeteoritos.instancia != null)
             {
-                ControlJuego.instancia.perderMinijuego();
+                MinijuegoMeteoritos.instancia.perder();
             }
         }
     }

@@ -36,15 +36,28 @@ public class GeneradorDianas : MonoBehaviour
     /// </summary>
     public float tiempoVidaObjeto = 2f;
 
+    /// <summary>Temporizador interno para controlar cuándo generar el siguiente objeto.</summary>
+    private float cronometro = 0f;
+
     /// <summary>
-    /// Método de inicialización.
-    /// Utiliza el sistema de invocación repetitiva de Unity para ejecutar la lógica de aparición 
-    /// en intervalos regulares, optimizando el rendimiento frente al uso del método Update.
+    /// Bucle de actualización principal.
+    /// Gestiona la instanciación respetando el bloqueo del cartel de instrucciones.
     /// </summary>
-    void Start()
+    void Update()
     {
-        // Inicia el ciclo de generación tras un breve retardo inicial de 0.5 segundos
-        InvokeRepeating("AparecerObjeto", 0.5f, tiempoEntreApariciones);
+        // 1. Candado: Si el juego no ha iniciado, abortamos la ejecución de este fotograma
+        if (MinijuegoDiana.instancia != null && !MinijuegoDiana.instancia.juegoIniciado)
+            return;
+
+        // Acumulamos el tiempo
+        cronometro += Time.deltaTime;
+
+        // Si superamos el umbral, generamos un objeto y reiniciamos el reloj
+        if (cronometro >= tiempoEntreApariciones)
+        {
+            AparecerObjeto();
+            cronometro = 0f;
+        }
     }
 
     /// <summary>

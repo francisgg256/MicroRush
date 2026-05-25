@@ -12,6 +12,11 @@ public class MinijuegoMeteoritos : MonoBehaviour
     /// </summary>
     public static MinijuegoMeteoritos instancia;
 
+    [Header("Control de Inicio")]
+    /// <summary>Candado lógico. Evita que el nivel y el tiempo funcionen mientras se lee el cartel.</summary>
+    public bool juegoIniciado = false;
+
+    [Header("Configuración del Nivel")]
     /// <summary>
     /// Tiempo total en segundos que el jugador debe sobrevivir esquivando meteoritos para superar la prueba.
     /// </summary>
@@ -52,6 +57,12 @@ public class MinijuegoMeteoritos : MonoBehaviour
         tiempoRestante = duracion;
     }
 
+    /// <summary>Método llamado por el cartel universal de UI para desbloquear el minijuego.</summary>
+    public void IniciarMinijuego()
+    {
+        juegoIniciado = true;
+    }
+
     /// <summary>
     /// Bucle principal del minijuego.
     /// Se encarga de restar el tiempo, actualizar la interfaz gráfica a través del gestor principal 
@@ -59,7 +70,8 @@ public class MinijuegoMeteoritos : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (terminado) return;
+        // Candado: Si el juego ya terminó o no ha empezado, no restamos tiempo
+        if (terminado || !juegoIniciado) return;
 
         // Sincronización del tiempo basada en los fotogramas reales procesados
         tiempoRestante -= Time.deltaTime;
@@ -83,7 +95,7 @@ public class MinijuegoMeteoritos : MonoBehaviour
     /// </summary>
     public void perder()
     {
-        if (terminado) return;
+        if (terminado || !juegoIniciado) return;
 
         terminado = true;
         ControlJuego.instancia.perderMinijuego();
@@ -91,10 +103,11 @@ public class MinijuegoMeteoritos : MonoBehaviour
 
     /// <summary>
     /// Gestiona la transición lógica hacia el éxito del nivel.
-    /// Se ejecuta internamente cuando el jugador logra evadir todos los obstáculos durante el tiempo establecido.
     /// </summary>
     private void terminarVictoria()
     {
+        if (terminado) return;
+
         terminado = true;
         ControlJuego.instancia.ganarMinijuego();
     }

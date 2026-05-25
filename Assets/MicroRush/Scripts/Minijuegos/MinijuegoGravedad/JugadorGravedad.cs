@@ -7,8 +7,11 @@ using UnityEngine;
 /// </summary>
 public class JugadorGravedad : MonoBehaviour
 {
-    [Header("Configuración de Movimiento")]
+    [Header("Control de Inicio")]
+    /// <summary>Candado lógico. Evita que el jugador corra y caiga mientras se lee el cartel.</summary>
+    public bool juegoIniciado = false;
 
+    [Header("Configuración de Movimiento")]
     /// <summary>Velocidad constante de avance en el eje horizontal (Autoscroll).</summary>
     public float velocidad = 6f;
 
@@ -16,7 +19,6 @@ public class JugadorGravedad : MonoBehaviour
     public float fuerzaGravedad = 3f;
 
     [Header("Componentes")]
-
     /// <summary>Referencia al motor de físicas 2D para la manipulación de velocidades y gravedad.</summary>
     public Rigidbody2D rb;
 
@@ -31,16 +33,31 @@ public class JugadorGravedad : MonoBehaviour
 
     /// <summary>
     /// Método de inicialización.
-    /// Configura la escala de gravedad inicial y arranca la animación de carrera por defecto.
+    /// Inicia al personaje completamente congelado en el aire sin gravedad.
     /// </summary>
     void Start()
     {
         if (rb != null)
         {
-            rb.gravityScale = fuerzaGravedad;
+            // Congelamos al jugador inicialmente para que no caiga durante el cartel
+            rb.gravityScale = 0f;
+            rb.linearVelocity = Vector2.zero;
         }
 
+        // Dejamos la animación en estado idle o parado si tienes una, 
+        // o directamente corriendo si no te importa que mueva las piernas en el sitio.
         if (anim != null) anim.Play("jugadorCorriendo");
+    }
+
+    /// <summary>Método llamado por el cartel universal de UI para desbloquear el minijuego.</summary>
+    public void IniciarMinijuego()
+    {
+        juegoIniciado = true;
+        if (rb != null)
+        {
+            // Restauramos la gravedad original en cuanto desaparece el cartel
+            rb.gravityScale = fuerzaGravedad;
+        }
     }
 
     /// <summary>
@@ -49,8 +66,8 @@ public class JugadorGravedad : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // Control de estado: Aborta la ejecución si el nivel finalizó o faltan dependencias críticas
-        if (juegoTerminado || rb == null) return;
+        // Control de estado: Aborta la ejecución si el nivel no ha empezado, finalizó, o faltan dependencias
+        if (!juegoIniciado || juegoTerminado || rb == null) return;
 
         // 1. Desplazamiento Constante (Auto-Runner):
         // Fija la velocidad en X, pero respeta la inercia actual en Y para no romper la caída libre.
@@ -67,29 +84,26 @@ public class JugadorGravedad : MonoBehaviour
 
     /// <summary>
     /// Método del ciclo de vida ejecutado tras el procesamiento de animaciones.
-    /// Se utiliza para sobreescribir las transformaciones visuales que el componente Animator 
-    /// pudiera haber forzado durante su propio ciclo de actualización.
     /// </summary>
     void LateUpdate()
     {
-        if (sprite != null && rb != null && !juegoTerminado)
+        // Solo volteamos el sprite si el juego ya está corriendo
+        if (sprite != null && rb != null && juegoIniciado && !juegoTerminado)
         {
-            // Sincronización Visual: Voltea el sprite verticalmente si la gravedad empuja hacia el techo (valor negativo)
+            // Sincronización Visual: Voltea el sprite verticalmente si la gravedad empuja hacia el techo
             sprite.flipY = (rb.gravityScale < 0);
         }
     }
 
     /// <summary>
     /// Sistema de detección de colisiones (Triggers).
-    /// Evalúa las interacciones espaciales con los obstáculos y la meta.
     /// </summary>
-    /// <param name="otro">Datos del colisionador interceptado.</param>
     private void OnTriggerEnter2D(Collider2D otro)
     {
-        // Trazabilidad de desarrollo: Registra los impactos en consola para facilitar la depuración (Debugging)
         Debug.Log("Impacto registrado con entidad: " + otro.name + " | Etiqueta (Tag): " + otro.tag);
 
-        if (juegoTerminado) return;
+        // Si el juego no ha iniciado (aunque no debería chocar) o terminó, salimos
+        if (!juegoIniciado || juegoTerminado) return;
 
         // Evaluación de Condiciones de Nivel
         if (otro.CompareTag("Trampa"))
@@ -102,9 +116,6 @@ public class JugadorGravedad : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Ejecuta la secuencia de victoria, frenando las físicas y notificando al gestor global.
-    /// </summary>
     void Ganar()
     {
         juegoTerminado = true;
@@ -115,9 +126,6 @@ public class JugadorGravedad : MonoBehaviour
         if (ControlJuego.instancia != null) ControlJuego.instancia.ganarMinijuego();
     }
 
-    /// <summary>
-    /// Ejecuta la secuencia de derrota, deteniendo al avatar y notificando el fallo al sistema.
-    /// </summary>
     void Perder()
     {
         juegoTerminado = true;

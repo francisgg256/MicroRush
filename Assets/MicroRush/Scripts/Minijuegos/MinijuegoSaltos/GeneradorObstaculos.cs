@@ -39,14 +39,17 @@ public class GeneradorObstaculos : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // Candado: Comprobamos si el manager existe y si ya ha dado la orden de inicio
+        if (MinijuegoSaltos.instancia != null && !MinijuegoSaltos.instancia.juegoIniciado)
+            return;
+
         // Resta el tiempo que ha tardado en renderizarse el último frame (Time.deltaTime).
-        // Esto asegura que la cuenta atrás sea en segundos reales y no dependa de la potencia del ordenador (FPS).
         temporizador -= Time.deltaTime;
 
         // Cuando el temporizador llega a cero o menos, es hora de generar un nuevo obstáculo
         if (temporizador <= 0)
         {
-            // Crea una copia del prefab en la posición exacta del generador, sin alterar su rotación (Quaternion.identity)
+            // Crea una copia del prefab en la posición exacta del generador, sin alterar su rotación
             Instantiate(obstaculoPrefab, transform.position, Quaternion.identity);
 
             // Reinicia el contador para el siguiente ciclo

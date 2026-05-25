@@ -7,8 +7,11 @@ using UnityEngine;
 /// </summary>
 public class JugadorSemaforo : MonoBehaviour
 {
-    [Header("Configuración")]
+    [Header("Control de Estado")]
+    /// <summary>Candado lógico. Evita que el jugador se mueva mientras se lee el cartel de instrucciones.</summary>
+    public bool puedeMoverse = false;
 
+    [Header("Configuración")]
     /// <summary>Velocidad de desplazamiento del personaje en unidades de Unity por segundo.</summary>
     public float velocidad = 5f;
 
@@ -19,7 +22,6 @@ public class JugadorSemaforo : MonoBehaviour
     public Transform meta;
 
     [Header("Componentes")]
-
     /// <summary>Referencia al motor de físicas 2D para aplicar movimiento sin atravesar colisionadores.</summary>
     public Rigidbody2D rb;
 
@@ -28,6 +30,12 @@ public class JugadorSemaforo : MonoBehaviour
 
     /// <summary>Referencia al controlador de animaciones para cambiar entre estados (Parado/Corriendo).</summary>
     public Animator anim;
+
+    /// <summary>Método llamado por el evento del cartel para habilitar los controles.</summary>
+    public void HabilitarMovimiento()
+    {
+        puedeMoverse = true;
+    }
 
     /// <summary>
     /// Bucle principal del jugador. 
@@ -38,6 +46,14 @@ public class JugadorSemaforo : MonoBehaviour
     {
         // Programación defensiva: Evita errores críticos si falta el componente de físicas
         if (rb == null) return;
+
+        // Candado: Si no puede moverse, lo mantenemos quieto e ignoramos los inputs
+        if (!puedeMoverse)
+        {
+            rb.linearVelocity = Vector2.zero;
+            ActualizarVisuales(0f, 0f); // Mantiene la animación en reposo
+            return;
+        }
 
         // Captura de entradas nativas de Unity (Input System) sin suavizado (GetAxisRaw)
         // para garantizar una respuesta de control táctil y precisa (estilo Arcade).

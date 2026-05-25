@@ -35,6 +35,10 @@ public class GeneradorClasificador : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // 1. Candado: Si el juego no ha iniciado, abortamos la ejecución de este fotograma
+        if (ManagerClasificador.instancia != null && !ManagerClasificador.instancia.juegoIniciado)
+            return;
+
         // Acumulación del tiempo transcurrido desde el último fotograma
         cronometro += Time.deltaTime;
 

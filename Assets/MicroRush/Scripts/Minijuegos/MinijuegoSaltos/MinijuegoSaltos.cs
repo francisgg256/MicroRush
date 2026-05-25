@@ -14,6 +14,11 @@ public class MinijuegoSaltos : MonoBehaviour
     /// </summary>
     public static MinijuegoSaltos instancia;
 
+    [Header("Control de Inicio")]
+    /// <summary>Candado lógico. Evita que el nivel y el tiempo funcionen mientras se lee el cartel.</summary>
+    public bool juegoIniciado = false;
+
+    [Header("Configuración del Nivel")]
     /// <summary>
     /// Duración total del minijuego en segundos. 
     /// Representa el tiempo que el jugador debe sobrevivir esquivando obstáculos para ganar.
@@ -55,14 +60,20 @@ public class MinijuegoSaltos : MonoBehaviour
         tiempoRestante = duracion;
     }
 
+    /// <summary>Método llamado por el cartel universal de UI para desbloquear el minijuego.</summary>
+    public void IniciarMinijuego()
+    {
+        juegoIniciado = true;
+    }
+
     /// <summary>
     /// Método del ciclo de vida que se ejecuta fotograma a fotograma.
     /// Se encarga de actualizar el HUD global y evaluar constantemente la condición de victoria.
     /// </summary>
     void Update()
     {
-        // Si el minijuego ya terminó, cortamos la ejecución para ahorrar recursos y evitar bugs
-        if (terminado) return;
+        // Candado: Si el minijuego ya terminó o no ha empezado, cortamos la ejecución
+        if (terminado || !juegoIniciado) return;
 
         // Cuenta regresiva independiente de los fotogramas por segundo (FPS) del dispositivo
         tiempoRestante -= Time.deltaTime;
@@ -86,7 +97,7 @@ public class MinijuegoSaltos : MonoBehaviour
     /// </summary>
     public void perder()
     {
-        if (terminado) return;
+        if (terminado || !juegoIniciado) return;
 
         terminado = true;
         ControlJuego.instancia.perderMinijuego();
@@ -98,6 +109,8 @@ public class MinijuegoSaltos : MonoBehaviour
     /// </summary>
     private void terminarVictoria()
     {
+        if (terminado) return;
+
         terminado = true;
         ControlJuego.instancia.ganarMinijuego();
     }

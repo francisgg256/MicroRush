@@ -10,6 +10,10 @@ using UnityEngine.UI;
 /// </summary>
 public class MinijuegoMemoria : MonoBehaviour
 {
+    [Header("Control de Inicio")]
+    /// <summary>Candado lógico. Evita que el juego arranque mientras se lee el cartel.</summary>
+    public bool juegoIniciado = false;
+
     [Header("Configuración de Interfaz")]
 
     /// <summary>
@@ -38,7 +42,7 @@ public class MinijuegoMemoria : MonoBehaviour
 
     /// <summary>
     /// Método de inicialización.
-    /// Prepara el estado visual por defecto (luces apagadas) y arranca el ciclo asíncrono del juego.
+    /// Prepara el estado visual por defecto (luces apagadas) y espera la orden de inicio.
     /// </summary>
     void Start()
     {
@@ -48,7 +52,14 @@ public class MinijuegoMemoria : MonoBehaviour
             luz.color = new Color(luz.color.r, luz.color.g, luz.color.b, 0.3f);
         }
 
-        // Lanza el primer hilo asíncrono para comenzar la ronda
+        // IMPORTANTE: Ya no lanzamos la corrutina aquí. Esperamos al cartel.
+    }
+
+    /// <summary>Método llamado por el cartel universal de UI para desbloquear el minijuego.</summary>
+    public void IniciarMinijuego()
+    {
+        juegoIniciado = true;
+        // Ahora sí, lanzamos el primer hilo asíncrono para comenzar la ronda
         StartCoroutine(SiguienteRonda());
     }
 
@@ -108,8 +119,8 @@ public class MinijuegoMemoria : MonoBehaviour
     /// <param name="indicePulsado">El número identificativo del botón que el usuario acaba de tocar.</param>
     public void BotonPulsado(int indicePulsado)
     {
-        // Prevención de Errores: Ignora clics fuera de turno o con el juego ya terminado
-        if (!turnoJugador || terminado) return;
+        // Prevención de Errores: Ignora clics si el juego no ha empezado, es fuera de turno, o ya terminó
+        if (!juegoIniciado || !turnoJugador || terminado) return;
 
         // Feedback inmediato: Reacciona visualmente al toque del usuario
         StartCoroutine(DestelloLuz(indicePulsado));

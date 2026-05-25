@@ -14,8 +14,11 @@ public class ManagerClasificador : MonoBehaviour
     /// </summary>
     public static ManagerClasificador instancia;
 
-    [Header("Configuración")]
+    [Header("Control de Inicio")]
+    /// <summary>Candado lógico. Evita que el nivel funcione mientras se lee el cartel de instrucciones.</summary>
+    public bool juegoIniciado = false;
 
+    [Header("Configuración")]
     /// <summary>
     /// Cuota de aciertos requerida para superar el nivel.
     /// Parámetro expuesto para facilitar el balanceo empírico de la dificultad.
@@ -34,12 +37,22 @@ public class ManagerClasificador : MonoBehaviour
         instancia = this;
     }
 
+    /// <summary>Método llamado por el cartel de UI para desbloquear el minijuego.</summary>
+    public void IniciarMinijuego()
+    {
+        juegoIniciado = true;
+        Debug.Log("¡Minijuego de clasificación iniciado!");
+    }
+
     /// <summary>
     /// Registra una clasificación correcta por parte del usuario.
     /// Incrementa el progreso y evalúa dinámicamente si se ha alcanzado la condición de victoria.
     /// </summary>
     public void Acierto()
     {
+        // Si el juego no ha empezado, no permitimos contabilizar puntos
+        if (!juegoIniciado) return;
+
         aciertosActuales++;
 
         // Trazabilidad de progreso para la consola de desarrollo
@@ -60,6 +73,9 @@ public class ManagerClasificador : MonoBehaviour
     /// </summary>
     public void Fallo()
     {
+        // Si el juego no ha empezado, ignoramos el fallo
+        if (!juegoIniciado) return;
+
         Debug.Log("Error de clasificación: Objeto depositado en el contenedor incorrecto.");
 
         // Paso de mensajes seguro al sistema global

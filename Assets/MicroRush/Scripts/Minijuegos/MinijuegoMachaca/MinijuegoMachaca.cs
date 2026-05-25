@@ -8,6 +8,11 @@ using UnityEngine.UI;
 /// </summary>
 public class MinijuegoMachaca : MonoBehaviour
 {
+    [Header("Control de Inicio")]
+    /// <summary>Candado lógico. Evita que el nivel y el tiempo funcionen mientras se lee el cartel.</summary>
+    public bool juegoIniciado = false;
+
+    [Header("Configuración del Nivel")]
     /// <summary>
     /// Componente de interfaz de usuario (UI Slider) que proporciona feedback visual inmediato al jugador.
     /// Cumple con la heurística de usabilidad de mostrar el estado del sistema en tiempo real.
@@ -38,6 +43,12 @@ public class MinijuegoMachaca : MonoBehaviour
         barraProgreso.value = 0f;
     }
 
+    /// <summary>Método llamado por el cartel universal de UI para desbloquear el minijuego.</summary>
+    public void IniciarMinijuego()
+    {
+        juegoIniciado = true;
+    }
+
     /// <summary>
     /// Bucle principal del minijuego.
     /// Gestiona la entrada del usuario, la penalización de tiempo, la actualización de la interfaz
@@ -45,8 +56,8 @@ public class MinijuegoMachaca : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // Si el juego ha finalizado, detenemos la ejecución para optimizar recursos
-        if (terminado) return;
+        // Candado: Si el juego ha finalizado o el cartel sigue en pantalla, detenemos la ejecución
+        if (terminado || !juegoIniciado) return;
 
         // Gestión del temporizador independiente de los FPS del sistema
         tiempoRestante -= Time.deltaTime;
