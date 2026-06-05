@@ -15,7 +15,6 @@ public class MinijuegoMemoria : MonoBehaviour
     public bool juegoIniciado = false;
 
     [Header("Configuración de Interfaz")]
-
     /// <summary>
     /// Array de componentes de imagen (UI) que actúan como los botones luminosos.
     /// Su transparencia (Canal Alfa) será manipulada para simular el estado de encendido/apagado.
@@ -27,6 +26,10 @@ public class MinijuegoMemoria : MonoBehaviour
 
     /// <summary>Duración en segundos de la animación de destello. Controla el ritmo (Pacing) del juego.</summary>
     public float velocidadBrillo = 0.5f;
+
+    [Header("Dificultad Nivel 2")]
+    /// <summary>Cantidad de colores que la máquina te lanza de golpe en la primera ronda.</summary>
+    public int pasosIniciales = 3;
 
     /// <summary>Estructura de datos dinámica que almacena la secuencia de índices generada por el sistema.</summary>
     private List<int> secuencia = new List<int>();
@@ -51,14 +54,23 @@ public class MinijuegoMemoria : MonoBehaviour
         {
             luz.color = new Color(luz.color.r, luz.color.g, luz.color.b, 0.3f);
         }
-
-        // IMPORTANTE: Ya no lanzamos la corrutina aquí. Esperamos al cartel.
     }
 
     /// <summary>Método llamado por el cartel universal de UI para desbloquear el minijuego.</summary>
     public void IniciarMinijuego()
     {
         juegoIniciado = true;
+
+        // LÓGICA DE DIFICULTAD: Pre-cargamos la memoria de la máquina antes de arrancar.
+        // Restamos 1 porque la corrutina SiguienteRonda() siempre añade 1 nuevo color por defecto al empezar.
+        if (pasosIniciales > 1)
+        {
+            for (int i = 0; i < pasosIniciales - 1; i++)
+            {
+                secuencia.Add(Random.Range(0, luces.Length));
+            }
+        }
+
         // Ahora sí, lanzamos el primer hilo asíncrono para comenzar la ronda
         StartCoroutine(SiguienteRonda());
     }
@@ -66,6 +78,7 @@ public class MinijuegoMemoria : MonoBehaviour
     /// <summary>
     /// Corrutina que gestiona la lógica del turno de la CPU.
     /// Añade un nuevo paso a la secuencia, bloquea la interfaz y muestra el patrón visual al jugador.
+    /// En el Nivel 2, la velocidad de los destellos aumenta progresivamente.
     /// </summary>
     IEnumerator SiguienteRonda()
     {
@@ -79,11 +92,15 @@ public class MinijuegoMemoria : MonoBehaviour
         // Generación procedimental: Añade un nuevo índice aleatorio basado en la cantidad de luces disponibles
         secuencia.Add(Random.Range(0, luces.Length));
 
+        // LÓGICA DE DIFICULTAD: Acelerar el brillo en cada ronda (hasta un límite de 0.15s)
+        // Usamos una fórmula basada en la cantidad de pasos de la secuencia actual
+        float velocidadActual = Mathf.Max(0.15f, velocidadBrillo - (secuencia.Count * 0.05f));
+
         // Bucle de Feedback Visual: Reproduce la secuencia acumulada
         foreach (int indiceColor in secuencia)
         {
-            // Espera a que termine un destello antes de lanzar el siguiente
-            yield return StartCoroutine(DestelloLuz(indiceColor));
+            // Le pasamos la velocidad actual acelerada a la corrutina del destello
+            yield return StartCoroutine(DestelloLuz(indiceColor, velocidadActual));
         }
 
         // Desbloqueo de Interfaz: Cede el control al usuario
@@ -95,7 +112,8 @@ public class MinijuegoMemoria : MonoBehaviour
     /// Modifica el canal Alfa del color para crear un efecto de "parpadeo" o "encendido".
     /// </summary>
     /// <param name="indice">Índice del array de luces que debe brillar.</param>
-    IEnumerator DestelloLuz(int indice)
+    /// <param name="velocidadDestello">Velocidad del parpadeo (normal para el jugador, acelerada para la CPU).</param>
+    IEnumerator DestelloLuz(int indice, float velocidadDestello)
     {
         Image luz = luces[indice];
 
@@ -103,13 +121,13 @@ public class MinijuegoMemoria : MonoBehaviour
         luz.color = new Color(luz.color.r, luz.color.g, luz.color.b, 1f);
 
         // El tiempo de espera bloquea esta corrutina específica sin congelar el juego entero
-        yield return new WaitForSeconds(velocidadBrillo);
+        yield return new WaitForSeconds(velocidadDestello);
 
         // APAGADO: Opacidad al 30% (0.3f)
         luz.color = new Color(luz.color.r, luz.color.g, luz.color.b, 0.3f);
 
         // Pausa breve entre destellos para facilitar la lectura visual cuando se repite el mismo color
-        yield return new WaitForSeconds(velocidadBrillo / 2f);
+        yield return new WaitForSeconds(velocidadDestello / 2f);
     }
 
     /// <summary>
@@ -122,8 +140,8 @@ public class MinijuegoMemoria : MonoBehaviour
         // Prevención de Errores: Ignora clics si el juego no ha empezado, es fuera de turno, o ya terminó
         if (!juegoIniciado || !turnoJugador || terminado) return;
 
-        // Feedback inmediato: Reacciona visualmente al toque del usuario
-        StartCoroutine(DestelloLuz(indicePulsado));
+        // Feedback inmediato: Reacciona visualmente al toque del usuario usando SIEMPRE la velocidad base
+        StartCoroutine(DestelloLuz(indicePulsado, velocidadBrillo));
 
         // Validación Lógica: Comprueba si el botón coincide con el patrón guardado
         if (indicePulsado == secuencia[pasoJugador])

@@ -2785,7 +2785,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.6197, y: -0.6604, z: 0}
-  m_LocalScale: {x: 3.9645615, y: 3.061766, z: 1}
+  m_LocalScale: {x: 4.3488593, y: 3.061766, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2993,7 +2993,7 @@ Transform:
   m_GameObject: {fileID: 833587272}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.07, y: -4.08, z: 0}
+  m_LocalPosition: {x: 4.88, y: -4.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3222,8 +3222,8 @@ Transform:
   m_GameObject: {fileID: 1151149128}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.6197, y: -0.6435, z: 0}
-  m_LocalScale: {x: 3.964561, y: 3.67078, z: 1}
+  m_LocalPosition: {x: -6.5884, y: -0.6435, z: 0}
+  m_LocalScale: {x: 4.359622, y: 3.67078, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3450,7 +3450,7 @@ Transform:
   m_GameObject: {fileID: 1389946813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.86, y: 2.82, z: 0}
+  m_LocalPosition: {x: 3.85, y: 2.82, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3993,6 +3993,7 @@ MonoBehaviour:
   fuerzaSalto: 8
   fisica: {fileID: 5516021410070676744}
   puntoSuelo: {fileID: 696643178}
+  sonidoSalto: {fileID: 0}
 --- !u!4 &5214135515081987460
 Transform:
   m_ObjectHideFlags: 0

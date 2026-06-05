@@ -22,7 +22,7 @@ EditorBuildSettings:
     guid: 142c352c364627a4ba5695012e4fe7b3
   - enabled: 1
     path: Assets/MicroRush/Scene/Resultados.unity
-    guid: e724674730aee2c498b63b5ec5476969
+    guid: 170c842dc84569d4d8bda75dfe17d008
   - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoSaltos.unity
     guid: 60db2199f01386a449d782093c130ad5
@@ -33,14 +33,17 @@ EditorBuildSettings:
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoPrecision.unity
     guid: 9bc367e552963ed4b8937601bff00d1d
   - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoPrecision2.unity
+    guid: c0c0c398f99c6e94bb1d04360977e643
+  - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoFrutas.unity
     guid: 933d68a57d7823a4faad0543838b7599
   - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoMeteoritos.unity
     guid: 23cedc97db84ee641b0a8cded16bd8bd
   - enabled: 1
-    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoClic.unity
-    guid: cfdfc931fa740f84d92d546e4268165d
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoMeteoritos2.unity
+    guid: e7e1263f179f9644b9219c00d784903f
   - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoSemaforo.unity
     guid: 427209fe8256e4e4e885a7d9bd280b14
@@ -48,11 +51,23 @@ EditorBuildSettings:
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoMemoria.unity
     guid: 18f3f33e76af57f49aa3fdb2995df8b6
   - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoMemoria2.unity
+    guid: 9a21aef31f30b50438939a9902581c1a
+  - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoGravedad.unity
     guid: 5866247fe85c1954aa4d27b846143f38
   - enabled: 1
-    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoClasificador.unity
-    guid: 3d50619c4bcd9f3428c4b80a280e1c19
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoLengua.unity
+    guid: b515fa8f881e11c498cb5f9c3c26e891
+  - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoOrdenador.unity
+    guid: 8e61bbf602a41074aa6bd81ac5c3a22a
+  - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoCesta.unity
+    guid: 2c9e0aa254d259e4481fee5e160b0274
+  - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoGuitarra.unity
+    guid: bc329d0fe3f65b048afe438e037bd196
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
