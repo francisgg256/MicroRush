@@ -56,3 +56,27 @@ Como parte del despliegue del proyecto, se ha elaborado la siguiente documentaci
 * **Documentación de Código:** Todos los scripts principales cuentan con sumarios XML listos para ser extraídos por generadores como Doxygen o DocFX.
 
 ---
+
+## ⚙️ Instrucciones de Montaje del Proyecto
+
+Sigue estos pasos para compilar y ejecutar el proyecto en tu entorno local:
+
+### Prerrequisitos Técnicos
+* **Unity Hub** instalado.
+* **Versión del Motor:** **Unity 6 (Versión 6000.3.2f1 LTS)** o superior.
+* **Git** instalado en tu sistema.
+
+### Paso 1: Clonar el Repositorio
+bash 
+git clone [https://github.com/francisgg256/MicroRush.git]
+
+### Paso 2: Importar en Unity
+1. Abre **Unity Hub** y haz clic en **Add** (Añadir).
+2. Selecciona la carpeta `MicroRush` clonada.
+3. Unity importará las dependencias y reconstruirá la carpeta `Library` (este proceso puede tardar unos minutos la primera vez).
+
+### Paso 3: Ejecución
+1. Ve a la ventana de **Project** en Unity y navega a: `Assets/MicroRush/Scene/`.
+2. Abre la escena inicial llamada **`Inicio.unity`**.
+3. Presiona el botón de **Play (▶️)** en el editor para iniciar el juego.
+Presiona el botón de Play (▶️) en el editor para iniciar el juego.
