@@ -4,85 +4,65 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Clase principal del sistema (Game Manager).
-/// Implementa el patrón de diseño Singleton para mantener un estado global y persistente a través de todas las escenas.
-/// Centraliza la lógica de puntuación, vidas, transiciones y la selección algorítmica de los minijuegos.
+/// Centraliza la lógica de puntuación, vidas, transiciones y la progresión de dificultad.
 /// </summary>
 public class ControlJuego : MonoBehaviour
 {
-    /// <summary>
-    /// Instancia estática única y accesible globalmente por cualquier otra clase del proyecto.
-    /// </summary>
     public static ControlJuego instancia;
 
     [Header("Estado Global del Jugador")]
-    /// <summary>Contador de vidas restantes. El juego termina cuando llega a cero.</summary>
     public int vidas = 3;
-
-    /// <summary>Puntuación acumulada durante la sesión actual.</summary>
     public int puntuacion = 0;
-
-    /// <summary>Temporizador del minijuego activo, utilizado para sincronizar el HUD.</summary>
     public float tiempoMinijuego = 0f;
 
-    [Header("Control de Flujo de Escenas")]
-    /// <summary>Registra si el último minijuego jugado resultó en victoria ("Ganado") o derrota ("Perdido").</summary>
-    public string ultimoResultado = "";
+    [Header("Progresión de Dificultad")]
+    /// <summary>Cuántos minijuegos debe superar el jugador para que empiecen a salir los difíciles.</summary>
+    public int umbralDificultad = 10;
 
-    /// <summary>Almacena el nombre de la última escena cargada para evitar repeticiones consecutivas.</summary>
+    /// <summary>Contador interno de victorias en la sesión actual.</summary>
+    public int minijuegosSuperados = 0;
+
+    [Header("Colecciones de Escenas")]
+    /// <summary>Lista de escenas de Nivel 1 (Fáciles).</summary>
+    public List<string> minijuegosFaciles = new List<string>();
+
+    /// <summary>Lista de escenas de Nivel 2 (Difíciles/Troll).</summary>
+    public List<string> minijuegosDificiles = new List<string>();
+
+    [Header("Control de Flujo de Escenas")]
+    public string ultimoResultado = "";
     public string ultimoMinijuego = "";
 
-    /// <summary>Colección (Lista) con los nombres exactos de las escenas de los minijuegos disponibles.</summary>
-    public List<string> minijuegos = new List<string>() { "MinijuegoSaltos", "MinijuegoMachaca" };
-
-    /// <summary>
-    /// Método de inicialización temprana.
-    /// Configura el patrón Singleton garantizando que solo exista una instancia de esta clase
-    /// y que no se destruya al transicionar entre diferentes escenas de Unity (DontDestroyOnLoad).
-    /// </summary>
     private void Awake()
     {
-        // Si no hay ninguna instancia previa, esta se convierte en la principal
         if (instancia == null)
         {
             instancia = this;
             DontDestroyOnLoad(gameObject);
         }
-        // Si ya existe un gestor, se destruye el clon para evitar conflictos de datos
         else
         {
             Destroy(gameObject);
         }
     }
 
-    /// <summary>
-    /// Reinicia los valores del estado global para comenzar una nueva sesión
-    /// y lanza el primer desafío aleatorio.
-    /// </summary>
     public void IniciarPartida()
     {
         vidas = 3;
         puntuacion = 0;
+        minijuegosSuperados = 0; // Reseteamos la cuenta de progreso al empezar
         CargarSiguienteMinijuego();
     }
 
-    /// <summary>
-    /// Registra el éxito en una prueba, incrementa la puntuación y redirige 
-    /// a la pantalla de transición para informar al jugador (Feedback de UI).
-    /// </summary>
     public void ganarMinijuego()
     {
         puntuacion += 100;
+        minijuegosSuperados++; // Sumamos una victoria al progreso
         ultimoResultado = "Ganado";
 
-        // Apuntamos a la escena única de resultados intermedios
         SceneManager.LoadScene("VictoriaMinijuego");
     }
 
-    /// <summary>
-    /// Gestiona el fallo en una prueba restando una vida. 
-    /// Evalúa si es un Game Over definitivo para guardar los datos en la nube,
-    /// o si el jugador aún tiene intentos restantes.
-    /// </summary>
     public void perderMinijuego()
     {
         vidas--;
@@ -90,46 +70,48 @@ public class ControlJuego : MonoBehaviour
 
         if (vidas <= 0)
         {
-            // Persistencia de datos en la nube (BaaS): 
-            // Recupera el nombre de usuario de las preferencias locales y guarda el récord en Firebase
             string nombre = PlayerPrefs.GetString("Usuario", "Jugador");
             if (ControladorFirebase.instancia != null)
                 ControladorFirebase.instancia.GuardarPuntuacion(nombre, puntuacion);
 
-            // Carga la pantalla final de resultados
             SceneManager.LoadScene("Resultados");
         }
         else
         {
-            // Si le quedan vidas, va a la pantalla de transición informativa
             SceneManager.LoadScene("VictoriaMinijuego");
         }
     }
 
-    /// <summary>
-    /// Algoritmo de selección de niveles.
-    /// Escoge el siguiente minijuego de forma pseudoaleatoria aplicando una restricción de diseño:
-    /// evita la repetición consecutiva del mismo nivel para mejorar la experiencia de usuario y dinamismo.
-    /// </summary>
     public void CargarSiguienteMinijuego()
     {
-        // Control de seguridad: Si solo hay 1 o 0 minijuegos en la lista, lo carga directamente para evitar un bucle infinito
-        if (minijuegos.Count <= 1)
+        // 1. Decidimos qué lista usar basándonos en las victorias del jugador
+        List<string> listaActual = (minijuegosSuperados >= umbralDificultad) ? minijuegosDificiles : minijuegosFaciles;
+
+        // 2. Control de seguridad por si olvidaste llenar las listas en Unity
+        if (listaActual.Count == 0)
         {
-            SceneManager.LoadScene(minijuegos[0]);
+            Debug.LogError("ERROR: La lista de minijuegos está vacía. ¡Añade escenas en el Inspector!");
             return;
         }
 
-        string siguiente = minijuegos[Random.Range(0, minijuegos.Count)];
+        // 3. Si solo hay 1 minijuego, lo cargamos directo para no colgar el juego en el bucle 'while'
+        if (listaActual.Count == 1)
+        {
+            ultimoMinijuego = listaActual[0];
+            SceneManager.LoadScene(listaActual[0]);
+            return;
+        }
 
-        // Bucle de validación: Recalcula la selección aleatoria mientras coincida con el último jugado
+        // 4. Elegimos uno aleatorio
+        string siguiente = listaActual[Random.Range(0, listaActual.Count)];
+
+        // Bucle para no repetir el último minijuego jugado
         while (siguiente == ultimoMinijuego)
         {
-            siguiente = minijuegos[Random.Range(0, minijuegos.Count)];
+            siguiente = listaActual[Random.Range(0, listaActual.Count)];
         }
 
         ultimoMinijuego = siguiente;
-
         SceneManager.LoadScene(siguiente);
     }
 }

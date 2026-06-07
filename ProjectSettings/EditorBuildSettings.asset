@@ -27,8 +27,14 @@ EditorBuildSettings:
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoSaltos.unity
     guid: 60db2199f01386a449d782093c130ad5
   - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoSaltos2.unity
+    guid: 9c5d9d4539931f8408080e686a7c43e4
+  - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoMachaca.unity
     guid: 27d642537d5880741b15713289cf4fec
+  - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoMachaca2.unity
+    guid: 55fde6aafbf350b46b49e1652c3f62f0
   - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoPrecision.unity
     guid: 9bc367e552963ed4b8937601bff00d1d
@@ -39,6 +45,9 @@ EditorBuildSettings:
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoFrutas.unity
     guid: 933d68a57d7823a4faad0543838b7599
   - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoFrutas2.unity
+    guid: 69123f535749bd143ae765ecc51f5e4d
+  - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoMeteoritos.unity
     guid: 23cedc97db84ee641b0a8cded16bd8bd
   - enabled: 1
@@ -47,6 +56,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoSemaforo.unity
     guid: 427209fe8256e4e4e885a7d9bd280b14
+  - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoSemaforo2.unity
+    guid: 1de97a39e1af87c46b63b4e3db9f0d40
   - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoMemoria.unity
     guid: 18f3f33e76af57f49aa3fdb2995df8b6
@@ -57,17 +69,32 @@ EditorBuildSettings:
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoGravedad.unity
     guid: 5866247fe85c1954aa4d27b846143f38
   - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoGravedad2.unity
+    guid: 83bb13c33de82b742b1538ba02b6a9d2
+  - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoLengua.unity
     guid: b515fa8f881e11c498cb5f9c3c26e891
+  - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoLengua2.unity
+    guid: 6683d2349de85cb4ab0009a410a0e187
   - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoOrdenador.unity
     guid: 8e61bbf602a41074aa6bd81ac5c3a22a
   - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoOrdenador2.unity
+    guid: ee9927981463a5646a256328d441e366
+  - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoCesta.unity
     guid: 2c9e0aa254d259e4481fee5e160b0274
   - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoCesta2.unity
+    guid: f751ce9129778b645951ea11a11f32d0
+  - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoGuitarra.unity
     guid: bc329d0fe3f65b048afe438e037bd196
+  - enabled: 1
+    path: Assets/MicroRush/Scene/Minijuegos/MinijuegoGuitarra2.unity
+    guid: 18612c26aa2c85b44a8a7b2d33b5d26e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

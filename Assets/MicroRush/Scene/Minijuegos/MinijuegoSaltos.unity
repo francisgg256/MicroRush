@@ -229,6 +229,9 @@ MonoBehaviour:
   juegoIniciado: 0
   duracion: 10
   tiempoRestante: 0
+  modoAcelerado: 0
+  multiplicadorMaximo: 2
+  multiplicadorDificultad: 1
 --- !u!4 &229338868
 Transform:
   m_ObjectHideFlags: 0

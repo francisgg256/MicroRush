@@ -241,6 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c7e94457182cc94399d6928eb96e230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CestaGameManager
+  juegoIniciado: 0
+  tiempoRestante: 7
   frutaPrefab: {fileID: 5478776215510311145, guid: 2cc5b31200cd14949b4f941a7010d853, type: 3}
   puntosGeneracion:
   - {fileID: 1035342220}
@@ -248,7 +250,6 @@ MonoBehaviour:
   - {fileID: 486967843}
   - {fileID: 1028127952}
   - {fileID: 1657125352}
-  tiempoRestante: 7
 --- !u!1 &268170117
 GameObject:
   m_ObjectHideFlags: 0
@@ -2958,36 +2959,48 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6073024940722200088, guid: 121dc58060abde648ba1c82f0d3e763c, type: 3}
+      propertyPath: alTerminarInstruccion.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073024940722200088, guid: 121dc58060abde648ba1c82f0d3e763c, type: 3}
       propertyPath: alTerminarInstruccion.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6073024940722200088, guid: 121dc58060abde648ba1c82f0d3e763c, type: 3}
       propertyPath: alTerminarInstruccion.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5685858782439283176}
     - target: {fileID: 6073024940722200088, guid: 121dc58060abde648ba1c82f0d3e763c, type: 3}
       propertyPath: alTerminarInstruccion.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 2982398019188521193}
+      objectReference: {fileID: 229338869}
+    - target: {fileID: 6073024940722200088, guid: 121dc58060abde648ba1c82f0d3e763c, type: 3}
+      propertyPath: alTerminarInstruccion.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6073024940722200088, guid: 121dc58060abde648ba1c82f0d3e763c, type: 3}
       propertyPath: alTerminarInstruccion.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6073024940722200088, guid: 121dc58060abde648ba1c82f0d3e763c, type: 3}
       propertyPath: alTerminarInstruccion.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: IniciarMinijuego
-      objectReference: {fileID: 0}
-    - target: {fileID: 6073024940722200088, guid: 121dc58060abde648ba1c82f0d3e763c, type: 3}
-      propertyPath: alTerminarInstruccion.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: HabilitarMovimiento
       objectReference: {fileID: 0}
     - target: {fileID: 6073024940722200088, guid: 121dc58060abde648ba1c82f0d3e763c, type: 3}
+      propertyPath: alTerminarInstruccion.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: IniciarMinijuego
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073024940722200088, guid: 121dc58060abde648ba1c82f0d3e763c, type: 3}
       propertyPath: alTerminarInstruccion.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MinijuegoSaltos, Assembly-CSharp
+      value: MovimientoRanaCesta, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6073024940722200088, guid: 121dc58060abde648ba1c82f0d3e763c, type: 3}
       propertyPath: alTerminarInstruccion.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: MovimientoJugador, Assembly-CSharp
+      value: CestaGameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073024940722200088, guid: 121dc58060abde648ba1c82f0d3e763c, type: 3}
+      propertyPath: alTerminarInstruccion.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6073024940722200088, guid: 121dc58060abde648ba1c82f0d3e763c, type: 3}
       propertyPath: alTerminarInstruccion.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -4067,13 +4080,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4972337954640781617}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a43d06680d94674288d5a5420cbe06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlFlipJugador
   fisica: {fileID: 5516021410070676744}
-  sprite: {fileID: 6756666544036778001}
+  sprite: {fileID: 0}
 --- !u!1 &1973540788838986189
 GameObject:
   m_ObjectHideFlags: 0
@@ -4112,7 +4125,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4972337954640781617}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04c7e0aadef33764a8d45a8e9cdd26e7, type: 3}
   m_Name: 
@@ -4224,6 +4237,7 @@ GameObject:
   - component: {fileID: 1412536888291649098}
   - component: {fileID: 4281914761190739282}
   - component: {fileID: 5083099287758474588}
+  - component: {fileID: 5685858782439283176}
   m_Layer: 0
   m_Name: Script
   m_TagString: Untagged
@@ -4306,6 +4320,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5214135515081987460}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5685858782439283176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972337954640781617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c64e8790a302e4aa907c871acea828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovimientoRanaCesta
+  puedeMoverse: 1
+  velocidad: 5
+  fisica: {fileID: 5516021410070676744}
+  spriteRana: {fileID: 6756666544036778001}
+  cesta: {fileID: 1467551730}
 --- !u!20 &6500831162076101531
 Camera:
   m_ObjectHideFlags: 0

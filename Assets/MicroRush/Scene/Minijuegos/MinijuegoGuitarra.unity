@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinijuegoGuitarra
   juegoIniciado: 0
-  tiempoRestante: 15
+  tiempoRestante: 10
   prefabsNotas:
   - {fileID: 7979494087010176366, guid: fdeb3390fb42f7746bd79207230b91ac, type: 3}
   - {fileID: 7361728999906726194, guid: f78229b31d3743a4ea7e70434c67e2b4, type: 3}
@@ -480,6 +480,10 @@ MonoBehaviour:
   - {fileID: 1100987646}
   - {fileID: 700144809}
   tiempoEntreNotas: 1
+  modoFrenetico: 0
+  tiempoEntreNotasFrenetico: 0.4
+  probabilidadNotaDoble: 35
+  multiplicadorVelocidadNotas: 1.6
 --- !u!1 &268170117
 GameObject:
   m_ObjectHideFlags: 0
@@ -4706,6 +4710,7 @@ MonoBehaviour:
   fuerzaSalto: 8
   fisica: {fileID: 5516021410070676744}
   puntoSuelo: {fileID: 696643178}
+  sonidoSalto: {fileID: 0}
 --- !u!4 &5214135515081987460
 Transform:
   m_ObjectHideFlags: 0

@@ -19,8 +19,9 @@ public class MinijuegoMeteoritos : MonoBehaviour
     [Header("Configuración del Nivel")]
     /// <summary>
     /// Tiempo total en segundos que el jugador debe sobrevivir esquivando meteoritos para superar la prueba.
+    /// Ajustado a 7s para mantener la tensión arcade de supervivencia.
     /// </summary>
-    public float duracion = 10f;
+    public float duracion = 7f;
 
     /// <summary>
     /// Temporizador interno que lleva la cuenta regresiva del tiempo de supervivencia actual.

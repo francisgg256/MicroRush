@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Gestor principal del minijuego de la rana.
-/// Genera objetos procedimentales desde el techo y gestiona la condición de victoria.
+/// Controla la lluvia clásica (Nivel 1) y el Modo Reflejos Extremos Anti-Camperos (Nivel 2).
 /// </summary>
 public class MinijuegoRana : MonoBehaviour
 {
@@ -13,13 +13,29 @@ public class MinijuegoRana : MonoBehaviour
     public bool juegoIniciado = false;
 
     [Header("Configuración del Nivel")]
-    public float tiempoRestante = 10f;
-    public int frutasParaGanar = 5;
+    public float tiempoRestante = 5f;
+    public int frutasParaGanar = 3;
 
-    [Header("Generador de Objetos")]
+    [Header("Generador (Nivel 1)")]
     public GameObject prefabFruta;
     public GameObject prefabPincho;
-    public float tiempoEntreApariciones = 1.2f;
+    public float tiempoEntreApariciones = 0.7f;
+
+    /// <summary>Porcentaje (0-100) de que caiga un pincho en lugar de una fruta.</summary>
+    public float probabilidadPincho = 30f;
+
+    [Header("Modo Reflejos (Nivel 2)")]
+    /// <summary>Activa esta casilla para moscas veloces y pinchos anti-camperos.</summary>
+    public bool modoReflejos = false;
+
+    /// <summary>Las frutas y pinchos caen mucho más seguido.</summary>
+    public float tiempoAparicionNivel2 = 0.35f;
+
+    /// <summary>Multiplicador que hace que los objetos caigan el doble de rápido.</summary>
+    public float multiplicadorVelocidadNivel2 = 2f;
+
+    /// <summary>Multiplicador de tamaño. 0.5 las hace a la mitad de su tamaño (moscas).</summary>
+    public float escalaObjetosNivel2 = 0.5f;
 
     [Tooltip("Límites X (Izquierda y Derecha) donde pueden aparecer los objetos")]
     public float limiteXIzquierda = -7f;
@@ -31,13 +47,12 @@ public class MinijuegoRana : MonoBehaviour
 
     void Awake()
     {
-        instancia = this; // Singleton para que la lengua lo encuentre fácil
+        instancia = this;
     }
 
     public void IniciarMinijuego()
     {
         juegoIniciado = true;
-        // Arranca la máquina de hacer llover frutas
         StartCoroutine(GenerarObjetos());
     }
 
@@ -60,17 +75,32 @@ public class MinijuegoRana : MonoBehaviour
     {
         while (juegoIniciado && !terminado)
         {
-            // Decidimos aleatoriamente si cae fruta (70% prob) o pincho (30% prob)
-            GameObject objetoASpawnear = Random.Range(0f, 100f) < 70f ? prefabFruta : prefabPincho;
+            // Decidimos qué prefab usar basándonos en la probabilidad
+            GameObject prefabElegido = Random.Range(0f, 100f) < probabilidadPincho ? prefabPincho : prefabFruta;
 
-            // Calculamos una posición aleatoria en el techo
+            // Calculamos posición
             float posicionX = Random.Range(limiteXIzquierda, limiteXDerecha);
-            Vector3 posicionGeneracion = new Vector3(posicionX, alturaAparicion, 0f);
 
-            // Creamos el objeto
-            Instantiate(objetoASpawnear, posicionGeneracion, Quaternion.identity);
+            // Instanciamos el objeto
+            GameObject nuevoObjeto = Instantiate(prefabElegido, new Vector3(posicionX, alturaAparicion, 0f), Quaternion.identity);
 
-            yield return new WaitForSeconds(tiempoEntreApariciones);
+            // --- MAGIA DEL NIVEL 2 ---
+            if (modoReflejos)
+            {
+                // 1. Encogemos el objeto para que requiera más puntería
+                nuevoObjeto.transform.localScale *= escalaObjetosNivel2;
+
+                // 2. Le inyectamos la súper velocidad al script de caída
+                ObjetoRana scriptCaida = nuevoObjeto.GetComponent<ObjetoRana>();
+                if (scriptCaida != null)
+                {
+                    scriptCaida.velocidadCaida *= multiplicadorVelocidadNivel2;
+                }
+            }
+
+            // Calculamos el tiempo de espera para la siguiente aparición
+            float tiempoEspera = modoReflejos ? tiempoAparicionNivel2 : tiempoEntreApariciones;
+            yield return new WaitForSeconds(tiempoEspera);
         }
     }
 
@@ -93,7 +123,6 @@ public class MinijuegoRana : MonoBehaviour
         if (terminado) return;
 
         terminado = true;
-        // El pincho mata al instante
         ControlJuego.instancia.perderMinijuego();
     }
 }

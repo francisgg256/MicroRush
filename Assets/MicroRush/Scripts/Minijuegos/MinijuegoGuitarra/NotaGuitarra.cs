@@ -11,6 +11,12 @@ public class NotaGuitarra : MonoBehaviour
     [Tooltip("La tecla del teclado que corresponde a este dibujo")]
     public KeyCode teclaAsociada;
 
+    // NUEVO: Función llamada por el Gestor en el Nivel 2
+    public void AcelerarNota(float multiplicador)
+    {
+        velocidadDescenso *= multiplicador;
+    }
+
     void Update()
     {
         // La nota baja constantemente

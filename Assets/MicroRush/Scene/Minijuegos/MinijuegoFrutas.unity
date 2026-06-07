@@ -3548,7 +3548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinijuegoFrutas
   juegoIniciado: 0
-  tiempoRestante: 15
+  tiempoRestante: 7
 --- !u!4 &980903099
 Transform:
   m_ObjectHideFlags: 0

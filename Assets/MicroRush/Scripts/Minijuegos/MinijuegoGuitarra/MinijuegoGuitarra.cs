@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Gestor principal del minijuego de ritmo.
-/// Controla el generador de notas, el tiempo límite y las condiciones de victoria/derrota.
+/// Controla el generador de notas, el tiempo límite y el Modo Frenético del Nivel 2.
 /// </summary>
 public class MinijuegoGuitarra : MonoBehaviour
 {
@@ -13,21 +13,33 @@ public class MinijuegoGuitarra : MonoBehaviour
     public bool juegoIniciado = false;
 
     [Header("Configuración del Nivel")]
-    public float tiempoRestante = 15f; // Lo que dura el minijuego
+    public float tiempoRestante = 10f;
 
-    [Header("Generador de Notas")]
-    public GameObject[] prefabsNotas;   // Mete aquí tus 4 prefabs (A, S, W, D)
-    public Transform[] puntosAparicion; // Mete aquí tus 4 Spawns (los objetos vacíos de arriba)
-    public float tiempoEntreNotas = 1f;
+    [Header("Generador de Notas (Nivel 1)")]
+    public GameObject[] prefabsNotas;
+    public Transform[] puntosAparicion;
+    public float tiempoEntreNotas = 0.7f;
+
+    [Header("Modo Frenético (Nivel 2)")]
+    /// <summary>Activa esta casilla para habilitar las notas dobles y la súper velocidad.</summary>
+    public bool modoFrenetico = false;
+
+    /// <summary>Tiempo de espera entre oleadas en el Nivel 2.</summary>
+    public float tiempoEntreNotasFrenetico = 0.4f;
+
+    /// <summary>Probabilidad (0-100) de que caigan dos notas al mismo tiempo.</summary>
+    [Range(0f, 100f)] public float probabilidadNotaDoble = 35f;
+
+    /// <summary>Multiplicador de la velocidad de caída de las notas.</summary>
+    public float multiplicadorVelocidadNotas = 1.6f;
 
     private bool terminado = false;
 
     void Awake()
     {
-        instancia = this; // Singleton para que las notas lo encuentren fácilmente
+        instancia = this;
     }
 
-    /// <summary>Llamado por tu cartel de "¡ACCION!"</summary>
     public void IniciarMinijuego()
     {
         juegoIniciado = true;
@@ -43,7 +55,6 @@ public class MinijuegoGuitarra : MonoBehaviour
         if (ControlJuego.instancia != null)
             ControlJuego.instancia.tiempoMinijuego = tiempoRestante;
 
-        // Si aguantas todo el tiempo sin fallar, ¡ganas!
         if (tiempoRestante <= 0)
         {
             terminado = true;
@@ -53,22 +64,51 @@ public class MinijuegoGuitarra : MonoBehaviour
 
     IEnumerator GenerarNotasAleatorias()
     {
+        // Elegimos el ritmo base según el nivel
+        float ritmoActual = modoFrenetico ? tiempoEntreNotasFrenetico : tiempoEntreNotas;
+
         while (juegoIniciado && !terminado)
         {
-            // Elegimos una pista al azar (del 0 al 3)
-            int indiceAleatorio = Random.Range(0, prefabsNotas.Length);
+            // 1. Generamos la primera nota obligatoria
+            int indice1 = Random.Range(0, prefabsNotas.Length);
+            LanzarNota(indice1);
 
-            // Creamos la nota en su punto de Spawn correspondiente
-            Instantiate(prefabsNotas[indiceAleatorio], puntosAparicion[indiceAleatorio].position, Quaternion.identity);
+            // 2. Si estamos en Nivel 2, tiramos los dados para ver si sale una nota doble
+            if (modoFrenetico && Random.Range(0f, 100f) <= probabilidadNotaDoble)
+            {
+                int indice2 = Random.Range(0, prefabsNotas.Length);
 
-            // Ritmo dinámico: espera un poco antes de lanzar la siguiente nota
-            float tiempoEspera = Random.Range(tiempoEntreNotas * 0.8f, tiempoEntreNotas * 1.2f);
+                // Bucle de seguridad: Evita que la segunda nota caiga exactamente en el mismo carril que la primera
+                while (indice2 == indice1)
+                {
+                    indice2 = Random.Range(0, prefabsNotas.Length);
+                }
+
+                LanzarNota(indice2);
+            }
+
+            // Ritmo dinámico para darle "swing"
+            float tiempoEspera = Random.Range(ritmoActual * 0.8f, ritmoActual * 1.2f);
             yield return new WaitForSeconds(tiempoEspera);
         }
     }
 
-    // --- MÉTODOS DE DERROTA ---
+    /// <summary>Instancia una nota y le aplica la velocidad extra si estamos en Nivel 2.</summary>
+    void LanzarNota(int indice)
+    {
+        GameObject nuevaNotaObj = Instantiate(prefabsNotas[indice], puntosAparicion[indice].position, Quaternion.identity);
 
+        if (modoFrenetico)
+        {
+            NotaGuitarra scriptNota = nuevaNotaObj.GetComponent<NotaGuitarra>();
+            if (scriptNota != null)
+            {
+                scriptNota.AcelerarNota(multiplicadorVelocidadNotas);
+            }
+        }
+    }
+
+    // --- MÉTODOS DE DERROTA ---
     public void PerderPorNotaPerdida()
     {
         if (terminado) return;

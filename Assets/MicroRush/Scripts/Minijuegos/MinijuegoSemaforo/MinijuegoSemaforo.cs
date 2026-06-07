@@ -1,83 +1,62 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
 /// Controlador principal del minijuego de sigilo y reflejos (Semaforo).
-/// Implementa una Máquina de Estados Finitos (FSM) para gestionar las fases de tiempo
-/// y proporciona un fuerte feedback visual utilizando la psicología del color.
+/// Implementa una Máquina de Estados Finitos (FSM) que ahora incluye el "Modo Troll" para el Nivel 2.
 /// </summary>
 public class MinijuegoSemaforo : MonoBehaviour
 {
-    /// <summary>
-    /// Instancia Singleton que permite a otros scripts (como el del jugador) consultar 
-    /// el estado actual del semáforo para determinar si el movimiento es una infracción.
-    /// </summary>
     public static MinijuegoSemaforo instancia;
 
     [Header("Control de Inicio")]
-    /// <summary>Candado lógico. Evita que el nivel y el tiempo funcionen mientras se lee el cartel.</summary>
     public bool juegoIniciado = false;
 
-    [Header("Configuración")]
-    /// <summary>Tiempo límite global en segundos para que el jugador cruce la meta.</summary>
+    [Header("Configuración del Nivel")]
     public float duracion = 10f;
-
-    /// <summary>Componente visual del semáforo que cambiará de color para advertir al jugador.</summary>
     public SpriteRenderer luzSemaforo;
-
-    /// <summary>
-    /// Variable de estado actual (0 = Verde, 1 = Amarillo, 2 = Rojo).
-    /// Se oculta en el Inspector para evitar manipulaciones accidentales durante el diseño del nivel,
-    /// pero es pública para que el script del jugador pueda consultarla.
-    /// </summary>
     [HideInInspector] public int estadoSemaforo = 0;
 
-    /// <summary>Temporizador global de la partida.</summary>
+    [Header("Modo Troll (Nivel 2)")]
+    /// <summary>Activa esta casilla para que el semáforo engañe al jugador.</summary>
+    public bool modoTroll = false;
+
+    /// <summary>Probabilidad (0-100) de que pase de Amarillo a Verde en lugar de Rojo.</summary>
+    [Range(0f, 100f)] public float probFalsaAlarma = 35f;
+
+    /// <summary>Probabilidad (0-100) de que pase de Verde a Rojo directamente, sin avisar.</summary>
+    [Range(0f, 100f)] public float probSaltoRojo = 20f;
+
     private float tiempoRestante;
-
-    /// <summary>Temporizador local que dicta cuánto tiempo queda para la siguiente transición de estado.</summary>
     private float temporizadorCambio;
-
-    /// <summary>Bandera de seguridad que congela la lógica una vez determinada la victoria o derrota.</summary>
     private bool terminado = false;
 
-    /// <summary>Inicialización temprana del patrón Singleton.</summary>
     private void Awake()
     {
         instancia = this;
     }
 
-    /// <summary>
-    /// Método de configuración inicial.
-    /// Establece el estado seguro por defecto (Verde) y calcula un tiempo aleatorio para el primer cambio.
-    /// </summary>
     void Start()
     {
         tiempoRestante = duracion;
-        CambiarLuz(0);
+        CambiarLuz(0); // Empezamos en verde
         temporizadorCambio = Random.Range(1.5f, 3.5f);
     }
 
-    /// <summary>Método llamado por el cartel universal de UI para desbloquear el minijuego.</summary>
     public void IniciarMinijuego()
     {
         juegoIniciado = true;
     }
 
-    /// <summary>
-    /// Bucle de lógica principal.
-    /// Evalúa de forma concurrente el tiempo límite global y las transiciones de la máquina de estados.
-    /// </summary>
     void Update()
     {
-        // Candado: Congelamos el tiempo y los cambios de luz si el juego no ha iniciado o ya terminó
         if (terminado || !juegoIniciado) return;
 
-        // 1. Lógica del tiempo general y actualización del HUD
+        // 1. Lógica del tiempo general
         tiempoRestante -= Time.deltaTime;
         if (ControlJuego.instancia != null)
             ControlJuego.instancia.tiempoMinijuego = tiempoRestante;
 
-        // Condición de Derrota: El jugador no alcanza la meta antes del fin del tiempo global
         if (tiempoRestante <= 0)
         {
             Perder();
@@ -92,45 +71,59 @@ public class MinijuegoSemaforo : MonoBehaviour
     }
 
     /// <summary>
-    /// Gestiona las transiciones de la Máquina de Estados Finitos (FSM).
-    /// Calcula dinámicamente la duración del siguiente estado para hacer el patrón impredecible.
+    /// Gestiona las transiciones. En Nivel 2, altera el flujo lógico de los colores para engañar al jugador.
     /// </summary>
     void AvanzarSemaforo()
     {
-        if (estadoSemaforo == 0) // Transición: VERDE -> AMARILLO
+        if (estadoSemaforo == 0) // ESTADO ACTUAL: VERDE
         {
-            CambiarLuz(1);
-            // Diseño de Usabilidad: El amarillo es breve, actuando únicamente como un aviso (Feedback anticipado)
-            temporizadorCambio = 0.8f;
+            // ¿Hacemos la trampa del susto? (Verde -> Rojo directo)
+            if (modoTroll && Random.Range(0f, 100f) <= probSaltoRojo)
+            {
+                CambiarLuz(2);
+                temporizadorCambio = Random.Range(1f, 2f); // Se queda en rojo un ratito
+            }
+            else
+            {
+                // Flujo normal: Verde -> Amarillo
+                CambiarLuz(1);
+
+                // En modo troll, el amarillo dura tiempos súper aleatorios para despistar más
+                temporizadorCambio = modoTroll ? Random.Range(0.3f, 1.2f) : 0.8f;
+            }
         }
-        else if (estadoSemaforo == 1) // Transición: AMARILLO -> ROJO
+        else if (estadoSemaforo == 1) // ESTADO ACTUAL: AMARILLO
         {
-            CambiarLuz(2);
-            temporizadorCambio = Random.Range(1f, 2f);
+            // ¿Hacemos la trampa de la falsa alarma? (Amarillo -> Verde)
+            if (modoTroll && Random.Range(0f, 100f) <= probFalsaAlarma)
+            {
+                CambiarLuz(0);
+                temporizadorCambio = Random.Range(1.5f, 3f); // Vuelve a dejarte correr
+            }
+            else
+            {
+                // Flujo normal: Amarillo -> Rojo
+                CambiarLuz(2);
+                temporizadorCambio = Random.Range(1f, 2f);
+            }
         }
-        else if (estadoSemaforo == 2) // Transición: ROJO -> VERDE
+        else if (estadoSemaforo == 2) // ESTADO ACTUAL: ROJO
         {
+            // El rojo siempre vuelve a verde para que el juego pueda avanzar
             CambiarLuz(0);
             temporizadorCambio = Random.Range(1.5f, 3.5f);
         }
     }
 
-    /// <summary>
-    /// Aplica el cambio de estado lógico y actualiza inmediatamente la interfaz visual.
-    /// Utiliza colores universales de la semiótica para que el usuario entienda las reglas sin tutoriales.
-    /// </summary>
-    /// <param name="nuevoEstado">Código numérico del nuevo estado a aplicar.</param>
     void CambiarLuz(int nuevoEstado)
     {
         estadoSemaforo = nuevoEstado;
 
-        // Modificación dinámica del material/color basándose en el estado actual
         if (estadoSemaforo == 0) luzSemaforo.color = Color.green;
         else if (estadoSemaforo == 1) luzSemaforo.color = Color.yellow;
         else if (estadoSemaforo == 2) luzSemaforo.color = Color.red;
     }
 
-    /// <summary>Notifica la victoria al gestor global y bloquea el estado.</summary>
     public void Ganar()
     {
         if (terminado) return;
@@ -138,7 +131,6 @@ public class MinijuegoSemaforo : MonoBehaviour
         ControlJuego.instancia.ganarMinijuego();
     }
 
-    /// <summary>Notifica la derrota al gestor global y bloquea el estado.</summary>
     public void Perder()
     {
         if (terminado) return;

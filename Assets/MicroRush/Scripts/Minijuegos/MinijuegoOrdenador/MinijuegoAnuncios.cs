@@ -1,70 +1,160 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 /// <summary>
 /// Gestor del minijuego de cerrar pop-ups.
-/// Controla el tiempo límite y verifica si todos los anuncios han sido destruidos.
+/// Calcula dinámicamente el tamaño de cada anuncio para evitar que se salgan de la pantalla.
 /// </summary>
 public class MinijuegoAnuncios : MonoBehaviour
 {
     [Header("Control de Inicio")]
-    /// <summary>Candado lógico. Evita que el nivel y el tiempo funcionen mientras se lee el cartel.</summary>
     public bool juegoIniciado = false;
 
-    [Header("Configuración del Nivel")]
-    /// <summary>Tiempo límite para cerrar todos los pop-ups.</summary>
-    public float tiempoRestante = 6f;
-
-    /// <summary>Cuántos anuncios hay en pantalla al empezar.</summary>
-    public int anunciosRestantes = 5;
-
+    [Header("Configuración General")]
+    public float tiempoRestante = 5f;
     private bool terminado = false;
 
-    /// <summary>Método llamado por el cartel universal de UI para desbloquear el minijuego.</summary>
+    [Header("Modo Clásico (Nivel 1)")]
+    public int anunciosRestantes = 5;
+
+    [Header("Modo Dinámico (Nivel 2)")]
+    public bool usarGeneradorDinamico = false;
+    public GameObject[] prefabsAnuncios;
+    public Transform pantallaOrdenador;
+    public float ritmoAparicion = 0.6f;
+    public int maxAnunciosSimultaneos = 4;
+
+    private int anunciosEnPantalla = 0;
+
+    void Start()
+    {
+        if (!usarGeneradorDinamico)
+        {
+            anunciosEnPantalla = anunciosRestantes;
+        }
+    }
+
     public void IniciarMinijuego()
     {
         juegoIniciado = true;
+
+        if (usarGeneradorDinamico)
+        {
+            anunciosEnPantalla = 0;
+            StartCoroutine(GeneradorAnuncios());
+        }
     }
 
     void Update()
     {
-        // Candado lógico
         if (terminado || !juegoIniciado) return;
 
-        // Cronómetro hacia atrás
         tiempoRestante -= Time.deltaTime;
 
-        // Actualizamos el HUD del tiempo si existe el ControlJuego
         if (ControlJuego.instancia != null)
             ControlJuego.instancia.tiempoMinijuego = tiempoRestante;
 
-        // Derrota si se acaba el tiempo y aún quedan anuncios
         if (tiempoRestante <= 0)
         {
             terminado = true;
-            ControlJuego.instancia.perderMinijuego();
+
+            if (usarGeneradorDinamico)
+            {
+                ControlJuego.instancia.ganarMinijuego();
+            }
+            else
+            {
+                ControlJuego.instancia.perderMinijuego();
+            }
         }
     }
 
     /// <summary>
-    /// Evento que se ejecuta al hacer clic en el botón invisible de la 'X'.
+    /// Instancia anuncios calculando sus medidas reales para mantenerlos siempre dentro del recuadro.
     /// </summary>
-    /// <param name="anuncio">El GameObject entero del anuncio que queremos borrar de la pantalla.</param>
+    IEnumerator GeneradorAnuncios()
+    {
+        if (pantallaOrdenador == null)
+        {
+            Debug.LogError("Error: No has asignado el objeto 'Ordenador' al script.");
+            yield break;
+        }
+
+        // Medimos el tamaño de la pantalla del ordenador
+        RectTransform rectPantalla = pantallaOrdenador.GetComponent<RectTransform>();
+        float anchoPantalla = rectPantalla.rect.width;
+        float altoPantalla = rectPantalla.rect.height;
+
+        while (juegoIniciado && !terminado)
+        {
+            yield return new WaitForSeconds(ritmoAparicion);
+
+            if (terminado || !juegoIniciado) break;
+
+            int indiceAleatorio = Random.Range(0, prefabsAnuncios.Length);
+            GameObject anuncioElegido = prefabsAnuncios[indiceAleatorio];
+
+            GameObject nuevoAnuncio = Instantiate(anuncioElegido, pantallaOrdenador);
+
+            // --- NUEVA LÓGICA DE BORDES PERFECTOS ---
+            // 1. Medimos el tamaño EXACTO del anuncio que acaba de nacer
+            RectTransform rectAnuncio = nuevoAnuncio.GetComponent<RectTransform>();
+            float anchoAnuncio = rectAnuncio.rect.width;
+            float altoAnuncio = rectAnuncio.rect.height;
+
+            // 2. El margen es exactamente la mitad de su tamaño, más 15 píxeles de "respiro" estético
+            float margenX = (anchoAnuncio / 2f) + 15f;
+            float margenY = (altoAnuncio / 2f) + 15f;
+
+            // 3. Calculamos la zona segura
+            float rangeX = (anchoPantalla / 2f) - margenX;
+            float rangeY = (altoPantalla / 2f) - margenY;
+
+            // Freno de seguridad por si el anuncio es más grande que la propia pantalla
+            rangeX = Mathf.Max(0, rangeX);
+            rangeY = Mathf.Max(0, rangeY);
+
+            // 4. Aplicamos la posición matemática perfecta
+            Vector3 offsetAleatorio = new Vector3(Random.Range(-rangeX, rangeX), Random.Range(-rangeY, rangeY), 0);
+            nuevoAnuncio.transform.localPosition = offsetAleatorio;
+
+            // Conexión del botón
+            Button botonAnuncio = nuevoAnuncio.GetComponentInChildren<Button>();
+            if (botonAnuncio != null)
+            {
+                botonAnuncio.onClick.RemoveAllListeners();
+                botonAnuncio.onClick.AddListener(() => CerrarAnuncio(nuevoAnuncio));
+            }
+
+            anunciosEnPantalla++;
+
+            if (anunciosEnPantalla >= maxAnunciosSimultaneos)
+            {
+                terminado = true;
+                ControlJuego.instancia.perderMinijuego();
+            }
+        }
+    }
+
     public void CerrarAnuncio(GameObject anuncio)
     {
-        // Si el juego ha terminado o no ha empezado, ignoramos los clics
         if (terminado || !juegoIniciado) return;
 
-        // Destruye el objeto del anuncio de la interfaz gráfica
         Destroy(anuncio);
 
-        // Restamos uno al contador interno
-        anunciosRestantes--;
-
-        // Comprobación de Victoria: ¿Hemos limpiado la pantalla?
-        if (anunciosRestantes <= 0)
+        if (usarGeneradorDinamico)
         {
-            terminado = true;
-            ControlJuego.instancia.ganarMinijuego();
+            anunciosEnPantalla--;
+        }
+        else
+        {
+            anunciosRestantes--;
+            if (anunciosRestantes <= 0)
+            {
+                terminado = true;
+                ControlJuego.instancia.ganarMinijuego();
+            }
         }
     }
 }

@@ -1910,24 +1910,38 @@ MonoBehaviour:
   vidas: 3
   puntuacion: 0
   tiempoMinijuego: 0
-  ultimoResultado: 
-  ultimoMinijuego: 
-  minijuegos:
+  umbralDificultad: 10
+  minijuegosSuperados: 0
+  minijuegosFaciles:
+  - MinijuegoCesta
+  - MinijuegoFrutas
   - MinijuegoSaltos
   - MinijuegoMachaca
   - MinijuegoPrecision
-  - MinijuegoFrutas
   - MinijuegoMeteoritos
-  - "MinijuegoPrecisi\xF3n2"
   - MinijuegoSemaforo
   - MinijuegoMemoria
   - MinijuegoGravedad
-  - MinijuegoMemoria2
   - MinijuegoLengua
-  - MinijuegoMeteoritos2
   - MinijuegoOrdenador
-  - MinijuegoGuitarra
   - MinijuegoCesta
+  - MinijuegoGuitarra
+  minijuegosDificiles:
+  - MinijuegoSaltos2
+  - MinijuegoMachaca2
+  - MinijuegoPrecision2
+  - MinijuegoFrutas2
+  - MinijuegoMeteoritos2
+  - MinijuegoSemaforo2
+  - MinijuegoMemoria2
+  - MinijuegoGravedad2
+  - MinijuegoLengua2
+  - MinijuegoOrdenador2
+  - MinijuegoCesta2
+  - MinijuegoGuitarra2
+  - MinijuegoSemaforo2
+  ultimoResultado: 
+  ultimoMinijuego: 
 --- !u!4 &1073516585
 Transform:
   m_ObjectHideFlags: 0

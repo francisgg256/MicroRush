@@ -164,11 +164,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinijuegoRana
   juegoIniciado: 0
-  tiempoRestante: 10
+  tiempoRestante: 5
   frutasParaGanar: 5
   prefabFruta: {fileID: 5478776215510311145, guid: 45ec40c7ef9e7b94b990d2dfe586243d, type: 3}
   prefabPincho: {fileID: 2618768566311492565, guid: 1ef3c1166efa67f4bb1631012bb46b13, type: 3}
   tiempoEntreApariciones: 1.2
+  probabilidadPincho: 30
+  modoReflejos: 0
+  tiempoAparicionNivel2: 0.35
+  multiplicadorVelocidadNivel2: 2
+  escalaObjetosNivel2: 0.5
   limiteXIzquierda: -8
   limiteXDerecha: 4
   alturaAparicion: 5
@@ -1108,7 +1113,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -14.26, y: -3.73, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1599,6 +1604,7 @@ MonoBehaviour:
   fuerzaSalto: 8
   fisica: {fileID: 0}
   puntoSuelo: {fileID: 696643178}
+  sonidoSalto: {fileID: 0}
 --- !u!4 &5214135515081987460
 Transform:
   m_ObjectHideFlags: 0

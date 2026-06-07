@@ -14,6 +14,10 @@ public class MinijuegoMemoria : MonoBehaviour
     /// <summary>Candado lógico. Evita que el juego arranque mientras se lee el cartel.</summary>
     public bool juegoIniciado = false;
 
+    [Header("Configuración del Nivel")]
+    /// <summary>NUEVO: Tiempo global para completar todas las rondas. 12s para Memoria 1, se recomienda 15s para Memoria 2.</summary>
+    public float tiempoRestante = 12f;
+
     [Header("Configuración de Interfaz")]
     /// <summary>
     /// Array de componentes de imagen (UI) que actúan como los botones luminosos.
@@ -73,6 +77,27 @@ public class MinijuegoMemoria : MonoBehaviour
 
         // Ahora sí, lanzamos el primer hilo asíncrono para comenzar la ronda
         StartCoroutine(SiguienteRonda());
+    }
+
+    /// <summary>
+    /// Bucle principal del minijuego (NUEVO).
+    /// Gestiona la cuenta regresiva global y penaliza la falta de reacción del jugador.
+    /// </summary>
+    void Update()
+    {
+        if (terminado || !juegoIniciado) return;
+
+        // El cronómetro corre sin parar, añadiendo tensión durante los turnos
+        tiempoRestante -= Time.deltaTime;
+
+        if (ControlJuego.instancia != null)
+            ControlJuego.instancia.tiempoMinijuego = tiempoRestante;
+
+        // Derrota si el jugador tarda demasiado en completar las rondas
+        if (tiempoRestante <= 0)
+        {
+            Perder();
+        }
     }
 
     /// <summary>
@@ -183,7 +208,7 @@ public class MinijuegoMemoria : MonoBehaviour
     void Perder()
     {
         terminado = true;
-        Debug.Log("Error en el patrón de memoria. Derrota inmediata.");
+        Debug.Log("Error en el patrón de memoria o tiempo agotado. Derrota inmediata.");
         if (ControlJuego.instancia != null) ControlJuego.instancia.perderMinijuego();
     }
 }
