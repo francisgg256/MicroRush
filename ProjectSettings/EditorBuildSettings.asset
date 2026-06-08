@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/MicroRush/Scene/Resultados.unity
     guid: 170c842dc84569d4d8bda75dfe17d008
   - enabled: 1
+    path: Assets/MicroRush/Scene/AvisoDificultad.unity
+    guid: 479146afad5b60c4b9063c40d006f07a
+  - enabled: 1
     path: Assets/MicroRush/Scene/Minijuegos/MinijuegoSaltos.unity
     guid: 60db2199f01386a449d782093c130ad5
   - enabled: 1

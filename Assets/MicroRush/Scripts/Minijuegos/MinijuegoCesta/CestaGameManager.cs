@@ -94,6 +94,12 @@ public class CestaGameManager : MonoBehaviour
     public void SumarFruta()
     {
         if (terminado) return;
+
+        // --- REPRODUCIR AUDIO ---
+        if (ControladorAudio.instancia != null)
+            ControladorAudio.instancia.ReproducirSonidoFruta();
+        // ------------------------
+
         frutasRecogidas++;
     }
 

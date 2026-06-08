@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinijuegoRana
   juegoIniciado: 0
-  tiempoRestante: 5
+  tiempoRestante: 7
   frutasParaGanar: 5
   prefabFruta: {fileID: 5478776215510311145, guid: 45ec40c7ef9e7b94b990d2dfe586243d, type: 3}
   prefabPincho: {fileID: 2618768566311492565, guid: 1ef3c1166efa67f4bb1631012bb46b13, type: 3}
@@ -383,8 +383,8 @@ Transform:
   m_GameObject: {fileID: 592858072}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.6197, y: -0.6604, z: 0}
-  m_LocalScale: {x: 4.3704114, y: 3.061766, z: 1}
+  m_LocalPosition: {x: -6.5872, y: -0.5302, z: 0}
+  m_LocalScale: {x: 4.464874, y: 3.14229, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -770,8 +770,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -103.13757, y: -50}
+  m_SizeDelta: {x: 296.8625, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1236750373
 MonoBehaviour:
@@ -859,7 +859,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -57.41438, w: 0}
+  m_margin: {x: 0, y: 0, z: -4.1399856, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1180,7 +1180,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 258.1174, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1844227934
 MonoBehaviour:
@@ -1316,8 +1316,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 58.117287, y: -50}
+  m_SizeDelta: {x: 316.2347, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1903904617
 MonoBehaviour:
@@ -1405,7 +1405,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -57.41445, w: 0}
+  m_margin: {x: 0, y: 0, z: 0.70291907, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

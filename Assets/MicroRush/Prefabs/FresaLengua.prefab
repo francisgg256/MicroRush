@@ -174,5 +174,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799547d49f8da1145a28a07fd92703bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjetoRana
-  velocidadCaida: 3
+  velocidadCaida: 6
   esPincho: 0

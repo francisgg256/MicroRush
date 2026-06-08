@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinijuegoGuitarra
   juegoIniciado: 0
-  tiempoRestante: 10
+  tiempoRestante: 7
   prefabsNotas:
   - {fileID: 7979494087010176366, guid: fdeb3390fb42f7746bd79207230b91ac, type: 3}
   - {fileID: 7361728999906726194, guid: f78229b31d3743a4ea7e70434c67e2b4, type: 3}
@@ -3055,8 +3055,8 @@ Transform:
   m_GameObject: {fileID: 592858072}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.651, y: -0.6604, z: 0}
-  m_LocalScale: {x: 4.35919, y: 3.061766, z: 1}
+  m_LocalPosition: {x: -6.5968, y: -0.5519, z: 0}
+  m_LocalScale: {x: 4.44591, y: 3.1288188, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3722,8 +3722,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -103.13776, y: -50}
+  m_SizeDelta: {x: 296.8623, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1236750373
 MonoBehaviour:
@@ -3811,7 +3811,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -57.41438, w: 0}
+  m_margin: {x: 0, y: 0, z: -1.7187214, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4134,7 +4134,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 265.382, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1844227934
 MonoBehaviour:
@@ -4270,8 +4270,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 49.6419, y: -50}
+  m_SizeDelta: {x: 299.2838, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1903904617
 MonoBehaviour:
@@ -4359,7 +4359,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -57.41445, w: 0}
+  m_margin: {x: 0, y: 0, z: -6.561775, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

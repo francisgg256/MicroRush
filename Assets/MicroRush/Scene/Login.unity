@@ -430,6 +430,7 @@ GameObject:
   - component: {fileID: 160806068}
   - component: {fileID: 160806067}
   - component: {fileID: 160806066}
+  - component: {fileID: 160806069}
   m_Layer: 5
   m_Name: BotonAtras
   m_TagString: Untagged
@@ -513,6 +514,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 160806069}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &160806067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,6 +564,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160806064}
   m_CullTransparentMesh: 1
+--- !u!114 &160806069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160806064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &229255503
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,6 +862,7 @@ GameObject:
   - component: {fileID: 350548778}
   - component: {fileID: 350548777}
   - component: {fileID: 350548776}
+  - component: {fileID: 350548779}
   m_Layer: 5
   m_Name: BotonRegistro
   m_TagString: Untagged
@@ -920,6 +946,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 350548779}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &350548777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -958,6 +996,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350548774}
   m_CullTransparentMesh: 1
+--- !u!114 &350548779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350548774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &374838364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,6 +1622,7 @@ GameObject:
   - component: {fileID: 445805585}
   - component: {fileID: 445805584}
   - component: {fileID: 445805583}
+  - component: {fileID: 445805586}
   m_Layer: 5
   m_Name: BotonLogin
   m_TagString: Untagged
@@ -1655,6 +1706,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 445805586}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &445805584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1693,6 +1756,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445805581}
   m_CullTransparentMesh: 1
+--- !u!114 &445805586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445805581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &649591554
 GameObject:
   m_ObjectHideFlags: 0

@@ -110,6 +110,11 @@ public class MinijuegoRana : MonoBehaviour
     {
         if (terminado) return;
 
+        // --- REPRODUCIR AUDIO ---
+        if (ControladorAudio.instancia != null)
+            ControladorAudio.instancia.ReproducirSonidoFruta();
+        // ------------------------
+
         frutasComidas++;
         if (frutasComidas >= frutasParaGanar)
         {

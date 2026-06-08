@@ -53,6 +53,11 @@ public class MinijuegoFrutas : MonoBehaviour
 
         if (!frutasContadas.Contains(frutaObjeto))
         {
+            // --- REPRODUCIR AUDIO ---
+            if (ControladorAudio.instancia != null)
+                ControladorAudio.instancia.ReproducirSonidoFruta();
+            // ------------------------
+
             frutasContadas.Add(frutaObjeto);
             frutasRecogidas++;
 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4285801836190953085}
   - component: {fileID: 6578241230709635666}
   - component: {fileID: 3532706190314513099}
+  - component: {fileID: 2868924746637133816}
   m_Layer: 5
   m_Name: MicroRush
   m_TagString: Untagged
@@ -76,6 +77,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2868924746637133816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2209659498861958678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &3322657840956885000
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,6 +217,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 2209659498861958678}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2868924746637133816}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

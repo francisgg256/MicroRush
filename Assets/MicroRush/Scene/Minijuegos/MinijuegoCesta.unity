@@ -250,6 +250,10 @@ MonoBehaviour:
   - {fileID: 486967843}
   - {fileID: 1028127952}
   - {fileID: 1657125352}
+  tiempoEntreSpawns: 0.8
+  generarPinchos: 0
+  pinchoPrefab: {fileID: 0}
+  probabilidadPincho: 30
 --- !u!1 &268170117
 GameObject:
   m_ObjectHideFlags: 0
@@ -2822,7 +2826,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.6197, y: -0.6604, z: 0}
-  m_LocalScale: {x: 4.404265, y: 3.061766, z: 1}
+  m_LocalScale: {x: 4.4593186, y: 3.176582, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3288,7 +3292,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.6549, y: -0.6435, z: 0}
-  m_LocalScale: {x: 4.410309, y: 3.67078, z: 1}
+  m_LocalScale: {x: 4.465438, y: 3.8084342, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3327,8 +3331,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -112.82391, y: -50}
+  m_SizeDelta: {x: 287.1761, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1236750373
 MonoBehaviour:
@@ -3416,7 +3420,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -57.41438, w: 0}
+  m_margin: {x: 0, y: 0, z: -4.140352, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3803,7 +3807,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 250.8527, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1844227934
 MonoBehaviour:
@@ -3939,8 +3943,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 41.166428, y: -50}
+  m_SizeDelta: {x: 282.333, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1903904617
 MonoBehaviour:
@@ -4028,7 +4032,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -57.41445, w: 0}
+  m_margin: {x: 0, y: 0, z: -6.561592, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

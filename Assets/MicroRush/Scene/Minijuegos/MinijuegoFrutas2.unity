@@ -287,8 +287,8 @@ Transform:
   m_GameObject: {fileID: 137300534}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.6822, y: 0.17, z: 0}
-  m_LocalScale: {x: 4.370382, y: 3.67078, z: 1}
+  m_LocalPosition: {x: -6.6496, y: 0.2351, z: 0}
+  m_LocalScale: {x: 4.4419026, y: 3.7185001, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3042,7 +3042,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 253.2742, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &696643177
 GameObject:
@@ -3258,7 +3258,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -53.17517, w: 0}
+  m_margin: {x: 0, y: 0, z: -7.165484, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3288,8 +3288,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -112.82391, y: -50}
+  m_SizeDelta: {x: 287.1761, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!1001 &847871561
 PrefabInstance:
@@ -3561,7 +3561,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -55.592262, w: 0}
+  m_margin: {x: 0, y: 0, z: -2.3182297, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3591,8 +3591,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 48.43113, y: -50}
+  m_SizeDelta: {x: 296.8623, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &980903097
 GameObject:
@@ -3624,7 +3624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinijuegoFrutas
   juegoIniciado: 0
-  tiempoRestante: 7
+  tiempoRestante: 10
 --- !u!4 &980903099
 Transform:
   m_ObjectHideFlags: 0
@@ -3949,8 +3949,8 @@ Transform:
   m_GameObject: {fileID: 1685842346}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.6418, y: 0.14, z: 0}
-  m_LocalScale: {x: 4.405997, y: 3.061766, z: 1}
+  m_LocalPosition: {x: -6.6309, y: 0.2594, z: 0}
+  m_LocalScale: {x: 4.455038, y: 3.1355543, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -4441,7 +4441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovimientoJugador
   puedeMoverse: 0
-  velocidad: 5
+  velocidad: 7
   fisica: {fileID: 5516021410070676744}
 --- !u!4 &3004959572042331047
 Transform:

@@ -4,30 +4,31 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Clase principal del sistema (Game Manager).
-/// Centraliza la lógica de puntuación, vidas, transiciones y la progresión de dificultad.
+/// Centraliza la lógica de puntuación, progresión y aplica un sistema de 
+/// "Mazo de cartas" (Bag System) para evitar la repetición prematura de minijuegos.
 /// </summary>
 public class ControlJuego : MonoBehaviour
 {
     public static ControlJuego instancia;
 
     [Header("Estado Global del Jugador")]
-    public int vidas = 3;
+    public int vidas = 4;
     public int puntuacion = 0;
     public float tiempoMinijuego = 0f;
 
     [Header("Progresión de Dificultad")]
-    /// <summary>Cuántos minijuegos debe superar el jugador para que empiecen a salir los difíciles.</summary>
     public int umbralDificultad = 10;
-
-    /// <summary>Contador interno de victorias en la sesión actual.</summary>
     public int minijuegosSuperados = 0;
+    private bool avisoDificultadMostrado = false;
 
-    [Header("Colecciones de Escenas")]
-    /// <summary>Lista de escenas de Nivel 1 (Fáciles).</summary>
+    [Header("Colecciones de Escenas (Base)")]
     public List<string> minijuegosFaciles = new List<string>();
-
-    /// <summary>Lista de escenas de Nivel 2 (Difíciles/Troll).</summary>
     public List<string> minijuegosDificiles = new List<string>();
+
+    // --- NUEVAS LISTAS: EL SISTEMA DE BOLSA ---
+    // Estas listas son temporales y se irán vaciando conforme el jugador avance.
+    private List<string> facilesDisponibles = new List<string>();
+    private List<string> dificilesDisponibles = new List<string>();
 
     [Header("Control de Flujo de Escenas")]
     public string ultimoResultado = "";
@@ -48,16 +49,29 @@ public class ControlJuego : MonoBehaviour
 
     public void IniciarPartida()
     {
-        vidas = 3;
+        vidas = 4;
         puntuacion = 0;
-        minijuegosSuperados = 0; // Reseteamos la cuenta de progreso al empezar
+        minijuegosSuperados = 0;
+        avisoDificultadMostrado = false;
+
+        // --- LLENAMOS LAS BOLSAS AL EMPEZAR ---
+        // Copiamos la lista original a la lista de "disponibles"
+        facilesDisponibles = new List<string>(minijuegosFaciles);
+        dificilesDisponibles = new List<string>(minijuegosDificiles);
+        // --------------------------------------
+
+        if (ControladorAudio.instancia != null)
+        {
+            ControladorAudio.instancia.ReanudarMusicaFondo();
+        }
+
         CargarSiguienteMinijuego();
     }
 
     public void ganarMinijuego()
     {
         puntuacion += 100;
-        minijuegosSuperados++; // Sumamos una victoria al progreso
+        minijuegosSuperados++;
         ultimoResultado = "Ganado";
 
         SceneManager.LoadScene("VictoriaMinijuego");
@@ -65,11 +79,17 @@ public class ControlJuego : MonoBehaviour
 
     public void perderMinijuego()
     {
+        if (ControladorAudio.instancia != null)
+            ControladorAudio.instancia.ReproducirSonidoDerrota();
+
         vidas--;
         ultimoResultado = "Perdido";
 
         if (vidas <= 0)
         {
+            if (ControladorAudio.instancia != null)
+                ControladorAudio.instancia.ReproducirSonidoGameOver();
+
             string nombre = PlayerPrefs.GetString("Usuario", "Jugador");
             if (ControladorFirebase.instancia != null)
                 ControladorFirebase.instancia.GuardarPuntuacion(nombre, puntuacion);
@@ -84,32 +104,49 @@ public class ControlJuego : MonoBehaviour
 
     public void CargarSiguienteMinijuego()
     {
-        // 1. Decidimos qué lista usar basándonos en las victorias del jugador
-        List<string> listaActual = (minijuegosSuperados >= umbralDificultad) ? minijuegosDificiles : minijuegosFaciles;
-
-        // 2. Control de seguridad por si olvidaste llenar las listas en Unity
-        if (listaActual.Count == 0)
+        // 1. Comprobamos si hay que lanzar el aviso de dificultad extrema
+        if (minijuegosSuperados == umbralDificultad && !avisoDificultadMostrado)
         {
-            Debug.LogError("ERROR: La lista de minijuegos está vacía. ¡Añade escenas en el Inspector!");
+            avisoDificultadMostrado = true;
+            SceneManager.LoadScene("AvisoDificultad");
             return;
         }
 
-        // 3. Si solo hay 1 minijuego, lo cargamos directo para no colgar el juego en el bucle 'while'
-        if (listaActual.Count == 1)
+        // 2. Decidimos en qué nivel estamos
+        bool esDificil = minijuegosSuperados >= umbralDificultad;
+        List<string> listaBase = esDificil ? minijuegosDificiles : minijuegosFaciles;
+        List<string> listaDisponibles = esDificil ? dificilesDisponibles : facilesDisponibles;
+
+        if (listaBase.Count == 0)
         {
-            ultimoMinijuego = listaActual[0];
-            SceneManager.LoadScene(listaActual[0]);
+            Debug.LogError("ERROR: La lista base de minijuegos está vacía en el Inspector.");
             return;
         }
 
-        // 4. Elegimos uno aleatorio
-        string siguiente = listaActual[Random.Range(0, listaActual.Count)];
-
-        // Bucle para no repetir el último minijuego jugado
-        while (siguiente == ultimoMinijuego)
+        // 3. --- RECARGA DE LA BOLSA ---
+        // Si ya hemos jugado TODOS los minijuegos y la bolsa está vacía, la rellenamos.
+        if (listaDisponibles.Count == 0)
         {
-            siguiente = listaActual[Random.Range(0, listaActual.Count)];
+            listaDisponibles.AddRange(listaBase);
         }
+
+        // 4. Elegimos uno al azar de los que QUEDAN en la bolsa
+        int indiceAleatorio = Random.Range(0, listaDisponibles.Count);
+        string siguiente = listaDisponibles[indiceAleatorio];
+
+        // 5. Pequeño control por si, al rellenar la bolsa, el nuevo juego sacado 
+        // resulta ser exactamente el mismo que el último jugado (para evitar repetición de choque).
+        if (siguiente == ultimoMinijuego && listaDisponibles.Count > 1)
+        {
+            while (siguiente == ultimoMinijuego)
+            {
+                indiceAleatorio = Random.Range(0, listaDisponibles.Count);
+                siguiente = listaDisponibles[indiceAleatorio];
+            }
+        }
+
+        // 6. ¡Súper importante! SACAMOS el minijuego de la bolsa para que no vuelva a salir
+        listaDisponibles.RemoveAt(indiceAleatorio);
 
         ultimoMinijuego = siguiente;
         SceneManager.LoadScene(siguiente);

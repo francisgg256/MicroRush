@@ -416,8 +416,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinijuegoAnuncios
   juegoIniciado: 0
-  tiempoRestante: 6
+  tiempoRestante: 7
   anunciosRestantes: 5
+  usarGeneradorDinamico: 0
+  prefabsAnuncios: []
+  pantallaOrdenador: {fileID: 0}
+  ritmoAparicion: 0.6
+  maxAnunciosSimultaneos: 4
 --- !u!1 &268502063
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +513,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 376225011}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 376225015}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -685,6 +702,7 @@ GameObject:
   - component: {fileID: 376225012}
   - component: {fileID: 376225014}
   - component: {fileID: 376225013}
+  - component: {fileID: 376225015}
   m_Layer: 5
   m_Name: Cookies
   m_TagString: Untagged
@@ -750,6 +768,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 376225011}
   m_CullTransparentMesh: 1
+--- !u!114 &376225015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376225011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &463714573
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,6 +870,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 753086414}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 753086418}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1115,6 +1157,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 534215473}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &488983128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,6 +1218,7 @@ GameObject:
   - component: {fileID: 534215470}
   - component: {fileID: 534215472}
   - component: {fileID: 534215471}
+  - component: {fileID: 534215473}
   m_Layer: 5
   m_Name: MicroRush
   m_TagString: Untagged
@@ -1229,6 +1284,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534215469}
   m_CullTransparentMesh: 1
+--- !u!114 &534215473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534215469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &600079535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1461,6 +1528,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1867005597}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &669299361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1510,6 +1589,7 @@ GameObject:
   - component: {fileID: 753086415}
   - component: {fileID: 753086417}
   - component: {fileID: 753086416}
+  - component: {fileID: 753086418}
   m_Layer: 5
   m_Name: Gatos
   m_TagString: Untagged
@@ -1575,6 +1655,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753086414}
   m_CullTransparentMesh: 1
+--- !u!114 &753086418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753086414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &834632565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,8 +1922,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -95.65674, y: -50}
+  m_SizeDelta: {x: 304.3432, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1236750373
 MonoBehaviour:
@@ -1919,7 +2011,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -60.4265, w: 0}
+  m_margin: {x: 0, y: 0, z: -22.747124, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2165,6 +2257,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2060389861}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1660378607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2238,7 +2342,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 278.2575, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1844227934
 MonoBehaviour:
@@ -2351,6 +2455,7 @@ GameObject:
   - component: {fileID: 1867005594}
   - component: {fileID: 1867005596}
   - component: {fileID: 1867005595}
+  - component: {fileID: 1867005597}
   m_Layer: 5
   m_Name: Unity
   m_TagString: Untagged
@@ -2416,6 +2521,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1867005593}
   m_CullTransparentMesh: 1
+--- !u!114 &1867005597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867005593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &1903904615
 GameObject:
   m_ObjectHideFlags: 0
@@ -2450,8 +2567,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 47.824066, y: -50}
+  m_SizeDelta: {x: 295.6482, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1903904617
 MonoBehaviour:
@@ -2539,7 +2656,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -60.426445, w: 0}
+  m_margin: {x: 0, y: 0, z: -8.254829, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2564,6 +2681,7 @@ GameObject:
   - component: {fileID: 2060389858}
   - component: {fileID: 2060389860}
   - component: {fileID: 2060389859}
+  - component: {fileID: 2060389861}
   m_Layer: 5
   m_Name: Basket
   m_TagString: Untagged
@@ -2629,6 +2747,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060389857}
   m_CullTransparentMesh: 1
+--- !u!114 &2060389861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060389857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1001 &1179732119224179489
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -204,8 +204,8 @@ Transform:
   m_GameObject: {fileID: 66950391}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.651, y: -0.6604, z: 0}
-  m_LocalScale: {x: 4.35919, y: 3.061766, z: 1}
+  m_LocalPosition: {x: -6.5918, y: -0.8171, z: 0}
+  m_LocalScale: {x: 4.478798, y: 3.1585176, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinijuegoMemoria
   juegoIniciado: 0
+  tiempoRestante: 20
   luces:
   - {fileID: 1378877375}
   - {fileID: 932047648}
@@ -599,8 +600,8 @@ Transform:
   m_GameObject: {fileID: 383741872}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.6821, y: -0.6435, z: 0}
-  m_LocalScale: {x: 4.370382, y: 3.67078, z: 1}
+  m_LocalPosition: {x: -6.6109, y: -0.7432, z: 0}
+  m_LocalScale: {x: 4.47454, y: 3.7441955, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -617,6 +618,7 @@ GameObject:
   - component: {fileID: 519531386}
   - component: {fileID: 519531384}
   - component: {fileID: 519531385}
+  - component: {fileID: 519531388}
   m_Layer: 5
   m_Name: Naranja
   m_TagString: Untagged
@@ -710,6 +712,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 519531388}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &519531386
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -737,6 +751,18 @@ RectTransform:
   m_AnchoredPosition: {x: 298, y: -100}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &519531388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519531383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &685248415
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,6 +775,7 @@ GameObject:
   - component: {fileID: 685248418}
   - component: {fileID: 685248416}
   - component: {fileID: 685248417}
+  - component: {fileID: 685248420}
   m_Layer: 5
   m_Name: Morado
   m_TagString: Untagged
@@ -842,6 +869,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 685248420}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &685248418
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -869,6 +908,18 @@ RectTransform:
   m_AnchoredPosition: {x: 294, y: 103}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &685248420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685248415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &762340432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,6 +1102,7 @@ GameObject:
   - component: {fileID: 932047650}
   - component: {fileID: 932047648}
   - component: {fileID: 932047649}
+  - component: {fileID: 932047652}
   m_Layer: 5
   m_Name: Azul
   m_TagString: Untagged
@@ -1144,6 +1196,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 932047652}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &932047650
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1171,6 +1235,18 @@ RectTransform:
   m_AnchoredPosition: {x: 100, y: 100}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &932047652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932047647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &1076848511
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,6 +1259,7 @@ GameObject:
   - component: {fileID: 1076848514}
   - component: {fileID: 1076848512}
   - component: {fileID: 1076848513}
+  - component: {fileID: 1076848516}
   m_Layer: 5
   m_Name: Verde
   m_TagString: Untagged
@@ -1276,6 +1353,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1076848516}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1076848514
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1303,6 +1392,18 @@ RectTransform:
   m_AnchoredPosition: {x: -100, y: -100}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1076848516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076848511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &1236750371
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,8 +1438,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -105.55939, y: -50}
+  m_SizeDelta: {x: 294.4407, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1236750373
 MonoBehaviour:
@@ -1426,7 +1527,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -57.41438, w: 0}
+  m_margin: {x: 0, y: 0, z: -1.7185384, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1452,6 +1553,7 @@ GameObject:
   - component: {fileID: 1252136917}
   - component: {fileID: 1252136915}
   - component: {fileID: 1252136916}
+  - component: {fileID: 1252136919}
   m_Layer: 5
   m_Name: Celeste
   m_TagString: Untagged
@@ -1545,6 +1647,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1252136919}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1252136917
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1572,6 +1686,18 @@ RectTransform:
   m_AnchoredPosition: {x: -291, y: -104}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1252136919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252136914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &1378877374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,6 +1710,7 @@ GameObject:
   - component: {fileID: 1378877377}
   - component: {fileID: 1378877375}
   - component: {fileID: 1378877376}
+  - component: {fileID: 1378877379}
   m_Layer: 5
   m_Name: Rojo
   m_TagString: Untagged
@@ -1677,6 +1804,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1378877379}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1378877377
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1704,6 +1843,18 @@ RectTransform:
   m_AnchoredPosition: {x: -100, y: 100}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1378877379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378877374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &1844227932
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,7 +1890,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 262.9605, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1844227934
 MonoBehaviour:
@@ -1875,8 +2026,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 48.39697, y: -50}
+  m_SizeDelta: {x: 296.7941, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1903904617
 MonoBehaviour:
@@ -1964,7 +2115,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -57.41445, w: 0}
+  m_margin: {x: 0, y: 0, z: -1.7186966, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1990,6 +2141,7 @@ GameObject:
   - component: {fileID: 1960452829}
   - component: {fileID: 1960452828}
   - component: {fileID: 1960452827}
+  - component: {fileID: 1960452830}
   m_Layer: 5
   m_Name: Amarillo
   m_TagString: Untagged
@@ -2072,6 +2224,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1960452830}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1960452828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2110,6 +2274,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1960452825}
   m_CullTransparentMesh: 1
+--- !u!114 &1960452830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960452825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!1 &2139277159
 GameObject:
   m_ObjectHideFlags: 0
@@ -2122,6 +2298,7 @@ GameObject:
   - component: {fileID: 2139277162}
   - component: {fileID: 2139277160}
   - component: {fileID: 2139277161}
+  - component: {fileID: 2139277164}
   m_Layer: 5
   m_Name: Rosa
   m_TagString: Untagged
@@ -2215,6 +2392,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2139277164}
+        m_TargetAssemblyTypeName: BotonSonido, Assembly-CSharp
+        m_MethodName: HacerSonarClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &2139277162
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2242,6 +2431,18 @@ RectTransform:
   m_AnchoredPosition: {x: -291, y: 103}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2139277164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139277159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd3a950f4bfad64c8d0cf680725277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
 --- !u!4 &2092825365480428911
 Transform:
   m_ObjectHideFlags: 0
