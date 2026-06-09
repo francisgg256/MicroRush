@@ -23,7 +23,9 @@ public class MinijuegoAnuncios : MonoBehaviour
     public GameObject[] prefabsAnuncios;
     public Transform pantallaOrdenador;
     public float ritmoAparicion = 0.6f;
-    public int maxAnunciosSimultaneos = 4;
+
+    /// <summary>Límite máximo de anuncios en pantalla antes de que el sistema colapse y pierdas.</summary>
+    public int maxAnunciosSimultaneos = 5;
 
     private int anunciosEnPantalla = 0;
 
@@ -61,18 +63,17 @@ public class MinijuegoAnuncios : MonoBehaviour
 
             if (usarGeneradorDinamico)
             {
+                // En nivel 2, si sobrevives al tiempo sin acumular 5 anuncios, ganas.
                 ControlJuego.instancia.ganarMinijuego();
             }
             else
             {
+                // En nivel 1, si se acaba el tiempo y no has cerrado los fijos, pierdes.
                 ControlJuego.instancia.perderMinijuego();
             }
         }
     }
 
-    /// <summary>
-    /// Instancia anuncios calculando sus medidas reales para mantenerlos siempre dentro del recuadro.
-    /// </summary>
     IEnumerator GeneradorAnuncios()
     {
         if (pantallaOrdenador == null)
@@ -81,7 +82,6 @@ public class MinijuegoAnuncios : MonoBehaviour
             yield break;
         }
 
-        // Medimos el tamaño de la pantalla del ordenador
         RectTransform rectPantalla = pantallaOrdenador.GetComponent<RectTransform>();
         float anchoPantalla = rectPantalla.rect.width;
         float altoPantalla = rectPantalla.rect.height;
@@ -97,29 +97,21 @@ public class MinijuegoAnuncios : MonoBehaviour
 
             GameObject nuevoAnuncio = Instantiate(anuncioElegido, pantallaOrdenador);
 
-            // --- NUEVA LÓGICA DE BORDES PERFECTOS ---
-            // 1. Medimos el tamaño EXACTO del anuncio que acaba de nacer
+            // --- LÓGICA DE BORDES PERFECTOS ---
             RectTransform rectAnuncio = nuevoAnuncio.GetComponent<RectTransform>();
             float anchoAnuncio = rectAnuncio.rect.width;
             float altoAnuncio = rectAnuncio.rect.height;
 
-            // 2. El margen es exactamente la mitad de su tamaño, más 15 píxeles de "respiro" estético
             float margenX = (anchoAnuncio / 2f) + 15f;
             float margenY = (altoAnuncio / 2f) + 15f;
 
-            // 3. Calculamos la zona segura
-            float rangeX = (anchoPantalla / 2f) - margenX;
-            float rangeY = (altoPantalla / 2f) - margenY;
+            float rangeX = Mathf.Max(0, (anchoPantalla / 2f) - margenX);
+            float rangeY = Mathf.Max(0, (altoPantalla / 2f) - margenY);
 
-            // Freno de seguridad por si el anuncio es más grande que la propia pantalla
-            rangeX = Mathf.Max(0, rangeX);
-            rangeY = Mathf.Max(0, rangeY);
-
-            // 4. Aplicamos la posición matemática perfecta
             Vector3 offsetAleatorio = new Vector3(Random.Range(-rangeX, rangeX), Random.Range(-rangeY, rangeY), 0);
             nuevoAnuncio.transform.localPosition = offsetAleatorio;
 
-            // Conexión del botón
+            // Conexión del botón para destruir el anuncio
             Button botonAnuncio = nuevoAnuncio.GetComponentInChildren<Button>();
             if (botonAnuncio != null)
             {
@@ -129,6 +121,7 @@ public class MinijuegoAnuncios : MonoBehaviour
 
             anunciosEnPantalla++;
 
+            // --- CONDICIÓN DE DERROTA POR COLAPSO ---
             if (anunciosEnPantalla >= maxAnunciosSimultaneos)
             {
                 terminado = true;

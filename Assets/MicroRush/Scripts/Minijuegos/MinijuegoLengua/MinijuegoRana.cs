@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Gestor principal del minijuego de la rana.
-/// Controla la lluvia clásica (Nivel 1) y el Modo Reflejos Extremos Anti-Camperos (Nivel 2).
+/// Controla la lluvia clásica (Nivel 1), el Modo Reflejos (Nivel 2) y el Sistema Anti-Mala Suerte.
 /// </summary>
 public class MinijuegoRana : MonoBehaviour
 {
@@ -21,8 +21,13 @@ public class MinijuegoRana : MonoBehaviour
     public GameObject prefabPincho;
     public float tiempoEntreApariciones = 0.7f;
 
-    /// <summary>Porcentaje (0-100) de que caiga un pincho en lugar de una fruta.</summary>
-    public float probabilidadPincho = 30f;
+    /// <summary>Porcentaje (0-100) de que caiga un pincho. Lo bajamos al 15% para hacerlo más justo.</summary>
+    public float probabilidadPincho = 15f;
+
+    [Header("Sistema Anti-Mala Suerte")]
+    /// <summary>Número máximo de pinchos que permitimos que salgan seguidos.</summary>
+    public int maxPinchosConsecutivos = 1;
+    private int pinchosSeguidosActuales = 0;
 
     [Header("Modo Reflejos (Nivel 2)")]
     /// <summary>Activa esta casilla para moscas veloces y pinchos anti-camperos.</summary>
@@ -75,8 +80,29 @@ public class MinijuegoRana : MonoBehaviour
     {
         while (juegoIniciado && !terminado)
         {
-            // Decidimos qué prefab usar basándonos en la probabilidad
-            GameObject prefabElegido = Random.Range(0f, 100f) < probabilidadPincho ? prefabPincho : prefabFruta;
+            GameObject prefabElegido;
+
+            // --- SISTEMA ANTI-MALA SUERTE ---
+            // Si ya han salido demasiados pinchos seguidos, forzamos que salga una fruta.
+            if (pinchosSeguidosActuales >= maxPinchosConsecutivos)
+            {
+                prefabElegido = prefabFruta;
+                pinchosSeguidosActuales = 0; // Reiniciamos el contador
+            }
+            else
+            {
+                // Si todo está normal, tiramos los dados (con la probabilidad rebajada)
+                if (Random.Range(0f, 100f) < probabilidadPincho)
+                {
+                    prefabElegido = prefabPincho;
+                    pinchosSeguidosActuales++; // Sumamos un pincho consecutivo
+                }
+                else
+                {
+                    prefabElegido = prefabFruta;
+                    pinchosSeguidosActuales = 0; // Al salir una fruta, el contador se limpia
+                }
+            }
 
             // Calculamos posición
             float posicionX = Random.Range(limiteXIzquierda, limiteXDerecha);

@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Controlador principal del minijuego de sigilo y reflejos (Semaforo).
-/// Implementa una Máquina de Estados Finitos (FSM) que ahora incluye el "Modo Troll" para el Nivel 2.
+/// Implementa una Máquina de Estados Finitos (FSM) que ahora incluye el "Modo Troll" balanceado para el Nivel 2.
 /// </summary>
 public class MinijuegoSemaforo : MonoBehaviour
 {
@@ -23,9 +23,6 @@ public class MinijuegoSemaforo : MonoBehaviour
 
     /// <summary>Probabilidad (0-100) de que pase de Amarillo a Verde en lugar de Rojo.</summary>
     [Range(0f, 100f)] public float probFalsaAlarma = 35f;
-
-    /// <summary>Probabilidad (0-100) de que pase de Verde a Rojo directamente, sin avisar.</summary>
-    [Range(0f, 100f)] public float probSaltoRojo = 20f;
 
     private float tiempoRestante;
     private float temporizadorCambio;
@@ -71,30 +68,23 @@ public class MinijuegoSemaforo : MonoBehaviour
     }
 
     /// <summary>
-    /// Gestiona las transiciones. En Nivel 2, altera el flujo lógico de los colores para engañar al jugador.
+    /// Gestiona las transiciones. En Nivel 2, altera el flujo lógico de los colores de forma justa.
     /// </summary>
     void AvanzarSemaforo()
     {
         if (estadoSemaforo == 0) // ESTADO ACTUAL: VERDE
         {
-            // ¿Hacemos la trampa del susto? (Verde -> Rojo directo)
-            if (modoTroll && Random.Range(0f, 100f) <= probSaltoRojo)
-            {
-                CambiarLuz(2);
-                temporizadorCambio = Random.Range(1f, 2f); // Se queda en rojo un ratito
-            }
-            else
-            {
-                // Flujo normal: Verde -> Amarillo
-                CambiarLuz(1);
+            // Flujo obligatorio: SIEMPRE pasa a Amarillo para dar tiempo de reacción al jugador.
+            CambiarLuz(1);
 
-                // En modo troll, el amarillo dura tiempos súper aleatorios para despistar más
-                temporizadorCambio = modoTroll ? Random.Range(0.3f, 1.2f) : 0.8f;
-            }
+            // En modo troll, el amarillo dura menos y es aleatorio para poner nervioso al jugador.
+            // Le damos al menos 0.5 segundos de reacción (justo para reflejos humanos), en normal 1 segundo.
+            temporizadorCambio = modoTroll ? Random.Range(0.5f, 1.0f) : 1.0f;
         }
         else if (estadoSemaforo == 1) // ESTADO ACTUAL: AMARILLO
         {
             // ¿Hacemos la trampa de la falsa alarma? (Amarillo -> Verde)
+            // Esta trampa sí es justa, porque no mata al jugador, solo le rompe el ritmo.
             if (modoTroll && Random.Range(0f, 100f) <= probFalsaAlarma)
             {
                 CambiarLuz(0);

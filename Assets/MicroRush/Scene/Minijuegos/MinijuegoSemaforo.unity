@@ -169,7 +169,6 @@ MonoBehaviour:
   estadoSemaforo: 0
   modoTroll: 0
   probFalsaAlarma: 35
-  probSaltoRojo: 20
 --- !u!1 &268170117
 GameObject:
   m_ObjectHideFlags: 0
@@ -4386,7 +4385,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0364, y: 0.186, z: 10}
-  m_LocalScale: {x: 4.5071883, y: 3.8117385, z: 1}
+  m_LocalScale: {x: 3.2113717, y: 3.8117385, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2092825365480428911}
@@ -4598,7 +4597,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0044, y: 0.1691, z: 10}
-  m_LocalScale: {x: 4.5043964, y: 3.1802566, z: 1}
+  m_LocalScale: {x: 3.2093823, y: 3.1802566, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2092825365480428911}
@@ -5318,7 +5317,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -10
+  m_SortingOrder: -9
   m_MaskInteraction: 0
   m_Sprite: {fileID: 6937817954938267909, guid: 0f3cd2c0039938a498a6193cf21b7b8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5339,7 +5338,7 @@ Transform:
   m_GameObject: {fileID: 2011635829}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.458571, y: 3.6072295, z: 10}
+  m_LocalPosition: {x: 7.44, y: 3.6072295, z: 10}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
