@@ -26,7 +26,6 @@ public class ControlJuego : MonoBehaviour
     public List<string> minijuegosDificiles = new List<string>();
 
     // --- NUEVAS LISTAS: EL SISTEMA DE BOLSA ---
-    // Estas listas son temporales y se irán vaciando conforme el jugador avance.
     private List<string> facilesDisponibles = new List<string>();
     private List<string> dificilesDisponibles = new List<string>();
 
@@ -55,10 +54,9 @@ public class ControlJuego : MonoBehaviour
         avisoDificultadMostrado = false;
 
         // --- LLENAMOS LAS BOLSAS AL EMPEZAR ---
-        // Copiamos la lista original a la lista de "disponibles"
         facilesDisponibles = new List<string>(minijuegosFaciles);
         dificilesDisponibles = new List<string>(minijuegosDificiles);
-        // --------------------------------------
+        ultimoMinijuego = "";
 
         if (ControladorAudio.instancia != null)
         {
@@ -114,39 +112,57 @@ public class ControlJuego : MonoBehaviour
 
         // 2. Decidimos en qué nivel estamos
         bool esDificil = minijuegosSuperados >= umbralDificultad;
-        List<string> listaBase = esDificil ? minijuegosDificiles : minijuegosFaciles;
-        List<string> listaDisponibles = esDificil ? dificilesDisponibles : facilesDisponibles;
 
-        if (listaBase.Count == 0)
+        // 3. --- RECARGA DE LA BOLSA (Si está vacía) ---
+        if (esDificil && dificilesDisponibles.Count == 0)
         {
-            Debug.LogError("ERROR: La lista base de minijuegos está vacía en el Inspector.");
-            return;
+            dificilesDisponibles = new List<string>(minijuegosDificiles);
+        }
+        else if (!esDificil && facilesDisponibles.Count == 0)
+        {
+            facilesDisponibles = new List<string>(minijuegosFaciles);
         }
 
-        // 3. --- RECARGA DE LA BOLSA ---
-        // Si ya hemos jugado TODOS los minijuegos y la bolsa está vacía, la rellenamos.
-        if (listaDisponibles.Count == 0)
-        {
-            listaDisponibles.AddRange(listaBase);
-        }
+        // 4. Elegimos el minijuego de la bolsa correcta
+        string siguiente = "";
+        int indiceAleatorio = 0;
 
-        // 4. Elegimos uno al azar de los que QUEDAN en la bolsa
-        int indiceAleatorio = Random.Range(0, listaDisponibles.Count);
-        string siguiente = listaDisponibles[indiceAleatorio];
-
-        // 5. Pequeño control por si, al rellenar la bolsa, el nuevo juego sacado 
-        // resulta ser exactamente el mismo que el último jugado (para evitar repetición de choque).
-        if (siguiente == ultimoMinijuego && listaDisponibles.Count > 1)
+        if (esDificil)
         {
-            while (siguiente == ultimoMinijuego)
+            indiceAleatorio = Random.Range(0, dificilesDisponibles.Count);
+            siguiente = dificilesDisponibles[indiceAleatorio];
+
+            // Control Anti-Repetición al rellenar la bolsa
+            if (siguiente == ultimoMinijuego && dificilesDisponibles.Count > 1)
             {
-                indiceAleatorio = Random.Range(0, listaDisponibles.Count);
-                siguiente = listaDisponibles[indiceAleatorio];
+                while (siguiente == ultimoMinijuego)
+                {
+                    indiceAleatorio = Random.Range(0, dificilesDisponibles.Count);
+                    siguiente = dificilesDisponibles[indiceAleatorio];
+                }
             }
-        }
 
-        // 6. ¡Súper importante! SACAMOS el minijuego de la bolsa para que no vuelva a salir
-        listaDisponibles.RemoveAt(indiceAleatorio);
+            // BORRAMOS DE LA LISTA GLOBAL
+            dificilesDisponibles.RemoveAt(indiceAleatorio);
+        }
+        else
+        {
+            indiceAleatorio = Random.Range(0, facilesDisponibles.Count);
+            siguiente = facilesDisponibles[indiceAleatorio];
+
+            // Control Anti-Repetición al rellenar la bolsa
+            if (siguiente == ultimoMinijuego && facilesDisponibles.Count > 1)
+            {
+                while (siguiente == ultimoMinijuego)
+                {
+                    indiceAleatorio = Random.Range(0, facilesDisponibles.Count);
+                    siguiente = facilesDisponibles[indiceAleatorio];
+                }
+            }
+
+            // BORRAMOS DE LA LISTA GLOBAL
+            facilesDisponibles.RemoveAt(indiceAleatorio);
+        }
 
         ultimoMinijuego = siguiente;
         SceneManager.LoadScene(siguiente);

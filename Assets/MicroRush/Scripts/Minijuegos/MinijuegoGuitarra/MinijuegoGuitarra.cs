@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Gestor principal del minijuego de ritmo.
-/// Controla el generador de notas, el tiempo límite y el Modo Frenético del Nivel 2.
+/// Controla el generador de notas, el tiempo límite y el Modo Frenético balanceado.
 /// </summary>
 public class MinijuegoGuitarra : MonoBehaviour
 {
@@ -21,19 +21,20 @@ public class MinijuegoGuitarra : MonoBehaviour
     public float tiempoEntreNotas = 0.7f;
 
     [Header("Modo Frenético (Nivel 2)")]
-    /// <summary>Activa esta casilla para habilitar las notas dobles y la súper velocidad.</summary>
     public bool modoFrenetico = false;
 
-    /// <summary>Tiempo de espera entre oleadas en el Nivel 2.</summary>
-    public float tiempoEntreNotasFrenetico = 0.4f;
+    // Aumentado un poco para dar margen de lectura (antes 0.4)
+    public float tiempoEntreNotasFrenetico = 0.5f;
 
-    /// <summary>Probabilidad (0-100) de que caigan dos notas al mismo tiempo.</summary>
     [Range(0f, 100f)] public float probabilidadNotaDoble = 35f;
 
-    /// <summary>Multiplicador de la velocidad de caída de las notas.</summary>
-    public float multiplicadorVelocidadNotas = 1.6f;
+    // Bajado de 1.6 a 1.35 para que el jugador tenga tiempo físico de reaccionar
+    public float multiplicadorVelocidadNotas = 1.35f;
 
     private bool terminado = false;
+
+    // Variable para el Sistema Anti-Spam
+    private bool dobleNotaAnterior = false;
 
     void Awake()
     {
@@ -64,7 +65,6 @@ public class MinijuegoGuitarra : MonoBehaviour
 
     IEnumerator GenerarNotasAleatorias()
     {
-        // Elegimos el ritmo base según el nivel
         float ritmoActual = modoFrenetico ? tiempoEntreNotasFrenetico : tiempoEntreNotas;
 
         while (juegoIniciado && !terminado)
@@ -73,27 +73,36 @@ public class MinijuegoGuitarra : MonoBehaviour
             int indice1 = Random.Range(0, prefabsNotas.Length);
             LanzarNota(indice1);
 
-            // 2. Si estamos en Nivel 2, tiramos los dados para ver si sale una nota doble
-            if (modoFrenetico && Random.Range(0f, 100f) <= probabilidadNotaDoble)
+            float tiempoEspera = Random.Range(ritmoActual * 0.8f, ritmoActual * 1.2f);
+
+            // --- 2. SISTEMA ANTI-SPAM DE NOTAS DOBLES ---
+            // Solo tira los dados si NO salió una nota doble justo antes
+            if (modoFrenetico && !dobleNotaAnterior && Random.Range(0f, 100f) <= probabilidadNotaDoble)
             {
                 int indice2 = Random.Range(0, prefabsNotas.Length);
 
-                // Bucle de seguridad: Evita que la segunda nota caiga exactamente en el mismo carril que la primera
+                // Evita que la segunda nota caiga en el mismo carril
                 while (indice2 == indice1)
                 {
                     indice2 = Random.Range(0, prefabsNotas.Length);
                 }
 
                 LanzarNota(indice2);
+                dobleNotaAnterior = true; // Marcamos que acaba de salir una doble
+
+                // Le damos una "micro-pausa" de respiro al jugador tras exigirle doble reflejo
+                tiempoEspera *= 1.4f;
+            }
+            else
+            {
+                // Si esta vez salió simple, reseteamos el seguro para que en la próxima pueda salir doble
+                dobleNotaAnterior = false;
             }
 
-            // Ritmo dinámico para darle "swing"
-            float tiempoEspera = Random.Range(ritmoActual * 0.8f, ritmoActual * 1.2f);
             yield return new WaitForSeconds(tiempoEspera);
         }
     }
 
-    /// <summary>Instancia una nota y le aplica la velocidad extra si estamos en Nivel 2.</summary>
     void LanzarNota(int indice)
     {
         GameObject nuevaNotaObj = Instantiate(prefabsNotas[indice], puntosAparicion[indice].position, Quaternion.identity);
