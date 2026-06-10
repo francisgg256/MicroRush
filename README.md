@@ -62,8 +62,6 @@ Como parte del despliegue del proyecto, se ha elaborado la siguiente documentaci
 
 ## ⚙️ Instrucciones de Montaje del Proyecto
 
-> ⚠️ **Nota para Profesores/Evaluadores:** Si estás leyendo esto y el repositorio se encuentra configurado como **Privado**, por favor, facilítame tu nombre de usuario de GitHub para poder concederte los permisos de lectura (Read Access) necesarios para clonar el proyecto.
-
 Sigue estos pasos para compilar y ejecutar el proyecto en tu entorno local:
 
 ### Prerrequisitos Técnicos
